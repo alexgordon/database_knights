@@ -16,6 +16,7 @@ $lastName = $_POST["lName"];
 $email = $_POST["email"];
 $newUserPass = $_POST["pass"];
 $newUserConfPass = $_POST["confPass"];
+$default_privilege_status = "student";
 
 $error_message = "";
 $string_exp = "/^[A-Za-z0-9 .'-]+$/";
@@ -45,6 +46,12 @@ else {
     //Insert password for that user
     $sql = "INSERT INTO passwordtable(user_id,passcode)
     VALUES ((SELECT U.user_id FROM usertable U WHERE U.email = '$email') ,'$newUserPass')";
+
+    $conn->query($sql);
+
+    //Create Privileges for that user
+    $sql = "INSERT INTO privilegestable(user_id,privilege_status)
+    VALUES ((SELECT U.user_id FROM usertable U WHERE U.email = '$email'),'$default_privilege_status')";
 
     $conn->query($sql);
 
