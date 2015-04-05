@@ -9,7 +9,8 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "sandbox";
+//$dbname = "sandbox";
+$dbname = "database_knights";
 
 session_start();
 date_default_timezone_set('America/New_York');
@@ -27,7 +28,7 @@ if ($conn->connect_error) {
 
 }
 
-$sql = "INSERT INTO commentstable(user_id,comment,commentDate) VALUES ('$id','$comment','$commentDate')";
+$sql = "INSERT INTO reviews_table(user_id,comments,reviewDate) VALUES ('$id','$comment','$commentDate')";
 $conn->query($sql);
 
 $conn->close();

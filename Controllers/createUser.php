@@ -9,7 +9,8 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "sandbox";
+//$dbname = "sandbox";
+$dbname = "database_knights";
 
 $firstName = $_POST["fName"];
 $lastName = $_POST["lName"];
@@ -38,20 +39,20 @@ else {
     }
 
     //Insert New User
-    $sql = "INSERT INTO usertable(firstName,lastName,email)
+    $sql = "INSERT INTO users_table(firstName,lastName,email)
     VALUES ('$firstName','$lastName','$email')";
 
     $conn->query($sql);
 
     //Insert password for that user
-    $sql = "INSERT INTO passwordtable(user_id,passcode)
-    VALUES ((SELECT U.user_id FROM usertable U WHERE U.email = '$email') ,'$newUserPass')";
+    $sql = "INSERT INTO passwords_table(user_id,password)
+    VALUES ((SELECT U.user_id FROM users_table U WHERE U.email = '$email') ,'$newUserPass')";
 
     $conn->query($sql);
 
     //Create Privileges for that user
-    $sql = "INSERT INTO privilegestable(user_id,privilege_status)
-    VALUES ((SELECT U.user_id FROM usertable U WHERE U.email = '$email'),'$default_privilege_status')";
+    $sql = "INSERT INTO privileges_table(user_id,privilege_status)
+    VALUES ((SELECT U.user_id FROM users_table U WHERE U.email = '$email'),'$default_privilege_status')";
 
     $conn->query($sql);
 

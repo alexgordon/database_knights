@@ -18,7 +18,8 @@ else{
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "sandbox";
+//    $dbname = "sandbox";
+    $dbname = "database_knights";
 
 //Create Connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -30,7 +31,7 @@ else{
     }
 
 //GET comments
-    $sql = "SELECT C.comment, C.commentDate From commentstable C";
+    $sql = "SELECT R.comments, R.reviewDate From reviews_table R";
     $result = $conn->query($sql);
     $resultArray = array();
     $dateArray = array();
@@ -40,8 +41,8 @@ else{
     while($rows = $result->fetch_assoc()){
      //   $resultArray[$rows['comment']][$counter] = $rows['comment'];
      //   $dateArray[$rows['commentDate']][$counter] = $rows['commentDate'];
-        $resultArray[$x][$counter] = $rows['comment'];
-        $resultArray[$y][$counter] = $rows['commentDate'];
+        $resultArray[$x][$counter] = $rows['comments'];
+        $resultArray[$y][$counter] = $rows['reviewDate'];
         $counter++;
     }
 

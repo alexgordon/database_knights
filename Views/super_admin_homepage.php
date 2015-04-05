@@ -65,6 +65,9 @@ if($_SESSION['user_id'] == null){
         <h4 class="text-center">Please add to the <a href="../Views/forum.php">discussion</a>
         </h4>
     </div>
+    <div class="row">
+        <h3 class="text-center"></h3>
+    </div>
 </div>
 
 <!--Footer-->

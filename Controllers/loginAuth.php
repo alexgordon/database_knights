@@ -9,7 +9,8 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "sandbox";
+//$dbname = "sandbox";
+$dbname = "database_knights";
 
 $userPass = $_POST["pass"];
 $email = $_POST["email"];
@@ -23,13 +24,13 @@ if ($conn->connect_error) {
 
 }
 
-$sql = "SELECT * FROM usertable U , passwordtable P WHERE U.email='$email' AND P.passcode ='$userPass'AND U.user_id = P.user_id";
+$sql = "SELECT * FROM users_table U , passwords_table P WHERE U.email='$email' AND P.password ='$userPass'AND U.user_id = P.user_id";
 $result = $conn->query($sql);
 $count = $result->num_rows;
 //Success
 if($count == 1){
 
-    $privilege_sql = "SELECT P.privilege_status FROM usertable U, privilegestable P WHERE U.email = '$email' AND U.user_id = P.user_id";
+    $privilege_sql = "SELECT P.privilege_status FROM users_table U, privileges_table P WHERE U.email = '$email' AND U.user_id = P.user_id";
     $privilege_result = $conn->query($privilege_sql);
     $privilege_row = $privilege_result->fetch_array(MYSQL_ASSOC);
 
