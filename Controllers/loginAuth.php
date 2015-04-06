@@ -42,6 +42,8 @@ if($count == 1){
         $_SESSION['firstName'] = $row['firstName'];
         $_SESSION['lastName'] = $row['lastName'];
         $_SESSION['user_id'] = $row['user_id'];
+        $_SESSION['uni_id'] = $row['uni_id'];
+        $_SESSION['privilege_status'] = $privilege_row['privilege_status'];
 
         header('Location: ../Views/user_homepage.php');
     }
@@ -54,6 +56,8 @@ if($count == 1){
         $_SESSION['firstName'] = $row['firstName'];
         $_SESSION['lastName'] = $row['lastName'];
         $_SESSION['user_id'] = $row['user_id'];
+        $_SESSION['uni_id'] = $row['uni_id'];
+        $_SESSION['privilege_status'] = $privilege_row['privilege_status'];
 
         header('Location: ../Views/admin_homepage.php');
 
@@ -67,6 +71,8 @@ if($count == 1){
         $_SESSION['firstName'] = $row['firstName'];
         $_SESSION['lastName'] = $row['lastName'];
         $_SESSION['user_id'] = $row['user_id'];
+        $_SESSION['privilege_status'] = $privilege_row['privilege_status'];
+        $_SESSION['uni_id'] = $row['uni_id'];
 
         header('Location: ../Views/super_admin_homepage.php');
 

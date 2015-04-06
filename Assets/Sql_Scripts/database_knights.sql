@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2015 at 01:04 AM
+-- Generation Time: Apr 06, 2015 at 08:26 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `passwords_table` (
   `password` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`p_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `passwords_table`
@@ -61,7 +61,8 @@ CREATE TABLE IF NOT EXISTS `passwords_table` (
 INSERT INTO `passwords_table` (`p_id`, `user_id`, `password`) VALUES
 (1, 1, 'test'),
 (2, 2, 'test'),
-(3, 3, 'test');
+(3, 3, 'test'),
+(4, 4, 'test');
 
 -- --------------------------------------------------------
 
@@ -76,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `privileges_table` (
   `privilege_status` varchar(45) NOT NULL,
   PRIMARY KEY (`priv_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `privileges_table`
@@ -85,7 +86,8 @@ CREATE TABLE IF NOT EXISTS `privileges_table` (
 INSERT INTO `privileges_table` (`priv_id`, `user_id`, `privilege_status`) VALUES
 (1, 1, 'admin'),
 (2, 2, 'super_admin'),
-(3, 3, 'student');
+(3, 3, 'student'),
+(4, 4, 'student');
 
 -- --------------------------------------------------------
 
@@ -123,6 +125,38 @@ CREATE TABLE IF NOT EXISTS `rso_member` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `rso_pending`
+--
+
+DROP TABLE IF EXISTS `rso_pending`;
+CREATE TABLE IF NOT EXISTS `rso_pending` (
+  `pending_id` int(11) NOT NULL AUTO_INCREMENT,
+  `rso_id` int(11) NOT NULL,
+  `admin` int(11) NOT NULL,
+  `mem2` int(11) NOT NULL,
+  `mem3` int(11) NOT NULL,
+  `mem4` int(11) NOT NULL,
+  `mem5` int(11) NOT NULL,
+  PRIMARY KEY (`pending_id`),
+  KEY `admin` (`admin`),
+  KEY `mem2` (`mem2`),
+  KEY `mem3` (`mem3`),
+  KEY `mem4` (`mem4`),
+  KEY `mem5` (`mem5`),
+  KEY `rso_id` (`rso_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `rso_pending`
+--
+
+INSERT INTO `rso_pending` (`pending_id`, `rso_id`, `admin`, `mem2`, `mem3`, `mem4`, `mem5`) VALUES
+(1, 2, 3, 3, 3, 3, 3),
+(2, 4, 3, 3, 3, 3, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `rso_table`
 --
 
@@ -135,7 +169,16 @@ CREATE TABLE IF NOT EXISTS `rso_table` (
   PRIMARY KEY (`rso_id`),
   KEY `uni_id` (`uni_id`),
   KEY `admin` (`admin`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `rso_table`
+--
+
+INSERT INTO `rso_table` (`rso_id`, `uni_id`, `name`, `admin`) VALUES
+(2, 3, 'Test RSO', 3),
+(3, 3, 'New RSO', 3),
+(4, 3, 'Club Club', 3);
 
 -- --------------------------------------------------------
 
@@ -151,7 +194,14 @@ CREATE TABLE IF NOT EXISTS `universities_table` (
   `description` varchar(150) NOT NULL,
   `num_students` int(11) NOT NULL,
   PRIMARY KEY (`uni_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `universities_table`
+--
+
+INSERT INTO `universities_table` (`uni_id`, `name`, `location`, `description`, `num_students`) VALUES
+(3, 'University of Central Florida', 'Orlando, Florida', 'This is a description of UCF.\r\nGO KNIGHTS!!!', 0);
 
 -- --------------------------------------------------------
 
@@ -165,17 +215,20 @@ CREATE TABLE IF NOT EXISTS `users_table` (
   `firstName` varchar(45) NOT NULL,
   `lastName` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `uni_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`),
+  KEY `uni_id` (`uni_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `users_table`
 --
 
-INSERT INTO `users_table` (`user_id`, `firstName`, `lastName`, `email`) VALUES
-(1, 'admin', 'user', 'admin@test.com'),
-(2, 'super', 'admin', 'superadmin@test.com'),
-(3, 'student', 'user', 'student@test.com');
+INSERT INTO `users_table` (`user_id`, `firstName`, `lastName`, `email`, `uni_id`) VALUES
+(1, 'admin', 'user', 'admin@test.com', 3),
+(2, 'super', 'admin', 'superadmin@test.com', 3),
+(3, 'student', 'user', 'student@test.com', 3),
+(4, 'test', 'account', 'test@test.com', 3);
 
 --
 -- Constraints for dumped tables
@@ -214,11 +267,28 @@ ALTER TABLE `rso_member`
   ADD CONSTRAINT `rso_member_ibfk_2` FOREIGN KEY (`rso_id`) REFERENCES `rso_table` (`rso_id`);
 
 --
+-- Constraints for table `rso_pending`
+--
+ALTER TABLE `rso_pending`
+  ADD CONSTRAINT `rso_pending_ibfk_6` FOREIGN KEY (`rso_id`) REFERENCES `rso_table` (`rso_id`),
+  ADD CONSTRAINT `rso_pending_ibfk_1` FOREIGN KEY (`admin`) REFERENCES `users_table` (`user_id`),
+  ADD CONSTRAINT `rso_pending_ibfk_2` FOREIGN KEY (`mem2`) REFERENCES `users_table` (`user_id`),
+  ADD CONSTRAINT `rso_pending_ibfk_3` FOREIGN KEY (`mem3`) REFERENCES `users_table` (`user_id`),
+  ADD CONSTRAINT `rso_pending_ibfk_4` FOREIGN KEY (`mem4`) REFERENCES `users_table` (`user_id`),
+  ADD CONSTRAINT `rso_pending_ibfk_5` FOREIGN KEY (`mem5`) REFERENCES `users_table` (`user_id`);
+
+--
 -- Constraints for table `rso_table`
 --
 ALTER TABLE `rso_table`
   ADD CONSTRAINT `rso_table_ibfk_1` FOREIGN KEY (`uni_id`) REFERENCES `universities_table` (`uni_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `rso_table_ibfk_2` FOREIGN KEY (`admin`) REFERENCES `users_table` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `users_table`
+--
+ALTER TABLE `users_table`
+  ADD CONSTRAINT `users_table_ibfk_1` FOREIGN KEY (`uni_id`) REFERENCES `universities_table` (`uni_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

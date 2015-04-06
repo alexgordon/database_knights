@@ -13,6 +13,45 @@ if($_SESSION['user_id'] == null){
     header('Location: ../Views/homepage.html');
 }
 
+else{
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+//    $dbname = "sandbox";
+    $dbname = "database_knights";
+
+//Create Connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+//Check Connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+
+    }
+
+//GET comments
+    $sql = "SELECT * From universities_table";
+    $result = $conn->query($sql);
+    $resultArray = array();
+    $dateArray = array();
+    $counter = 0;
+    $x=0;
+    $y=1;
+    $two = 2;
+    $three = 3;
+    while($rows = $result->fetch_assoc()){
+        //   $resultArray[$rows['comment']][$counter] = $rows['comment'];
+        //   $dateArray[$rows['commentDate']][$counter] = $rows['commentDate'];
+        $resultArray[$x][$counter] = $rows['name'];
+        $resultArray[$y][$counter] = $rows['location'];
+        $resultArray[$two][$counter] = $rows['description'];
+        $resultArray[$three][$counter] = $rows['num_students'];
+        $counter++;
+    }
+
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -58,15 +97,56 @@ if($_SESSION['user_id'] == null){
 <!--Header-->
 
 <div class="container-fluid">
-    <?php
-    echo "<h3 class='text-center'>Welcome Super Admin " . $_SESSION["firstName"] . " " . $_SESSION["lastName"]."</h3>";
-    ?>
+<!--    --><?php
+/*    echo "<h3 class='text-center'>Welcome Super Admin " . $_SESSION["firstName"] . " " . $_SESSION["lastName"]."</h3>";
+    */?>
     <div class="row">
-        <h4 class="text-center">Please add to the <a href="../Views/forum.php">discussion</a>
-        </h4>
+        <h3 class="text-center">Current Universities</h3>
     </div>
     <div class="row">
-        <h3 class="text-center"></h3>
+        <table class="table table-bordered">
+            <tr>
+                <th class="text-center">University</th>
+                <th class="text-center">Location</th>
+                <th class="text-center">Description</th>
+                <th class="text-center">Number of Students</th>
+            </tr>
+            <?php
+                for($i=0; $i<$counter; $i++) {
+                    echo
+                        "<tr>
+                            <td class='text-center'>".$resultArray[$x][$i]."</td>
+                            <td class='text-center'>".$resultArray[$y][$i]."</td>
+                            <td class='text-center'>".$resultArray[$two][$i]."</td>
+                            <td class='text-center'>".$resultArray[$three][$i]."</td>
+                        </tr>";
+                    }
+            ?>
+        </table>
+    </div>
+    <div>
+        <h3 class="text-center">Add New University</h3>
+        <form action="../Controllers/createUniversity.php" method="post">
+            <div class="col-sm-4 col-sm-offset-4">
+                <div class="form-group">
+                    <label for="uName" class="control-label">University Name</label>
+                    <input type="text" name="uName" id="uName" placeholder="University Name" autofocus class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="location" class="control-label">Location</label>
+                    <input type="text" name="location" id="location" placeholder="Location" autofocus class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="description" class="control-label">Description</label>
+                    <textarea type="comment" name="description" id="description" placeholder="Description" autofocus class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-block">
+                        Create University
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 

@@ -17,6 +17,7 @@ $lastName = $_POST["lName"];
 $email = $_POST["email"];
 $newUserPass = $_POST["pass"];
 $newUserConfPass = $_POST["confPass"];
+$userUniversity = $_POST["uName"];
 $default_privilege_status = "student";
 
 $error_message = "";
@@ -39,8 +40,8 @@ else {
     }
 
     //Insert New User
-    $sql = "INSERT INTO users_table(firstName,lastName,email)
-    VALUES ('$firstName','$lastName','$email')";
+    $sql = "INSERT INTO users_table(firstName,lastName,email,uni_id)
+    VALUES ('$firstName','$lastName','$email',(SELECT UNI.uni_id FROM universities_table UNI WHERE UNI.name = '$userUniversity'))";
 
     $conn->query($sql);
 
@@ -55,6 +56,7 @@ else {
     VALUES ((SELECT U.user_id FROM users_table U WHERE U.email = '$email'),'$default_privilege_status')";
 
     $conn->query($sql);
+
 
     $conn->close();
     }

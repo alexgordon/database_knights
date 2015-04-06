@@ -9,8 +9,34 @@
 
 session_start();
 
-if($_SESSION['user_id'] == null){
+if($_SESSION['user_id'] == null || $_SESSION['privilege_status'] != "admin"){
     header('Location: ../Views/homepage.html');
+}
+
+else{
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+//    $dbname = "sandbox";
+    $dbname = "database_knights";
+
+    $uni_id = $_SESSION['uni_id'];
+
+//Create Connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+//Check Connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+
+    }
+
+//GET University
+    $sql = "SELECT UNI.name FROM universities_table UNI WHERE UNI.uni_id = '$uni_id'";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+
 }
 
 ?>
@@ -59,6 +85,7 @@ if($_SESSION['user_id'] == null){
 
 <div class="container-fluid">
     <?php
+    echo "<h2 class='text-center'>".$row['name']."</h2>";
     echo "<h3 class='text-center'>Welcome Admin " . $_SESSION["firstName"] . " " . $_SESSION["lastName"]."</h3>";
     ?>
     <div class="row">

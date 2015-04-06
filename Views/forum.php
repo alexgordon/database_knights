@@ -135,7 +135,7 @@ else{
                         "<img src='http://cdn.flaticon.com/png/256/24029.png' />".
                     "</div>".
                     "<div class='commentText'>".
-                        "<p>".$resultArray[0][$i]."</p>"."<span class='date sub-text'>".$resultArray[1][$i]."</span>".
+                        "<p>".$resultArray[$x][$i]."</p>"."<span class='date sub-text'>".$resultArray[$y][$i]."</span>".
 
                     "</div>".
                 "</li>";
