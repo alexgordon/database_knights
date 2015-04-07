@@ -22,6 +22,7 @@
         $dbname = "database_knights";
 
         $uni_id = $_SESSION['uni_id'];
+        $user_id = $_SESSION['user_id'];
 
 //Create Connection
         $conn = new mysqli($servername, $username, $password, $dbname);
@@ -37,6 +38,20 @@
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
 
+//GET RSO's
+        $sql = "SELECT R.name, R.rso_id FROM rso_table R, rso_member RM WHERE R.rso_id = RM.rso_id AND RM.user_id = '$user_id'";
+        $result = $conn->query($sql);
+        $resultArray = array();
+        $counter = 0;
+        $x = 0;
+        $y = 1;
+        while($rows = $result->fetch_assoc()) {
+
+            $resultArray[$x][$counter] = $rows['name'];
+            $resultArray[$y][$counter] = $rows['rso_id'];
+            $counter++;
+
+        }
     }
 
 ?>
@@ -95,6 +110,14 @@
         <hr>
         <div class="row">
             <h3 class="text-center">My RSO's</h3>
+            <div>
+                <?php
+                    for($i = 0; $i<$counter; $i++) {
+                        echo
+                            "<h4><a href='../Views/user_rso_page.php?rso_id=".$resultArray[$y][$i]."'> ".$resultArray[$x][$i]."</a></h4>";
+                    }
+                ?>
+            </div>
         </div>
         <hr>
         <div>

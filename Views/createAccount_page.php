@@ -70,7 +70,7 @@ while($rows = $result->fetch_assoc()){
                     <a href="login_page.html">Login</a>
                 </li>
                 <li>
-                    <a href="createAccount_page.html">Create Account</a>
+                    <a href="createAccount_page.php">Create Account</a>
                 </li>
             </ul>
         </div>

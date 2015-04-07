@@ -49,6 +49,18 @@ else{
         $counter++;
     }
 
+//GET RSO's
+    $sql = "SELECT R.*, U.email FROM rso_table R INNER JOIN users_table U ON R.admin=U.user_id Inner Join rso_pending RP ON R.rso_id = RP.rso_id";
+    $result = $conn->query($sql);
+    $rsoArray = array();
+    $rsoCounter = 0;
+    while($rows = $result->fetch_assoc()){
+
+        $rsoArray[$x][$rsoCounter] = $rows['name'];
+        $rsoArray[$y][$rsoCounter] = $rows['email'];
+        $rsoArray[$two][$rsoCounter] = $rows['rso_id'];
+        $rsoCounter++;
+    }
 }
 
 
@@ -124,7 +136,7 @@ else{
             ?>
         </table>
     </div>
-    <div>
+    <div class="row">
         <h3 class="text-center">Add New University</h3>
         <form action="../Controllers/createUniversity.php" method="post">
             <div class="col-sm-4 col-sm-offset-4">
@@ -147,6 +159,40 @@ else{
                 </div>
             </div>
         </form>
+    </div>
+    <hr class="row">
+    <div class="row">
+        <h3 class="text-center">RSO Applications</h3>
+    </div>
+    <div class="row">
+        <table class="table table-bordered">
+            <tr>
+                <th class='text-center'>RSO</th>
+                <th class='text-center'>Admin</th>
+                <th class='text-center'>Accept Application</th>
+                <th class='text-center'>Decline Application</th>
+            </tr>
+            <?php
+                //Add rows with data from database
+                for($i=0; $i < $rsoCounter; $i++){
+                    echo
+                        "<tr>
+                            <td class='text-center'>".$rsoArray[$x][$i]."</td>
+                            <td class='text-center'>".$rsoArray[$y][$i]."</td>
+                            <td><form action='../Controllers/rsoAcceptButton.php' method='post'>
+                                    <button class='btn btn-block' type='submit'> Accept </button>
+                                    <input name='rso_id' type='hidden' value='".$rsoArray[$two][$i]."'>
+                                </form>
+                            </td>
+                            <td><form action='../Controllers/rsoDeclineButton.php' method='post'>
+                                    <button class='btn btn-block' type='submit'> Decline </button>
+                                    <input name='rso_id' type='hidden' value='".$rsoArray[$two][$i]."'>
+                                </form>
+                            </td>
+                        </tr>";
+                }
+            ?>
+        </table>
     </div>
 </div>
 
