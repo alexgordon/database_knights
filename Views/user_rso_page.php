@@ -86,7 +86,7 @@ else{
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="admin_homepage.php" class="navbar-brand">Compnay Name</a>
+            <a href="user_homepage.php" class="navbar-brand">Compnay Name</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -106,11 +106,45 @@ else{
 
     <?php
     echo "<h2 class='text-center'>".$row['name']."</h2>";
-    
+
     if($resultArray[$y] == $_SESSION['user_id'])
         echo "<h3 class='text-center'>".$resultArray[$x]." - Admin</h3>";
     else
         echo "<h3 class='text-center'>".$resultArray[$x]."</h3>";
+    ?>
+    <hr>
+    <h3 class="text-center">Current Events</h3>
+    <?php
+        if($resultArray[$y] == $_SESSION['user_id'])
+            echo
+                "<hr>
+                <h3 class='text-center'>Create Event</h3>
+                <form action='../Controllers/createRsoEvent.php' method='post'>
+                    <div class='col-sm-4 col-sm-offset-4'>
+                        <div class='form-group'>
+                            <label for='eName' class='control-label'>Event Name</label>
+                            <input type='text' name='eName' id='eName' placeholder='Event Name' autofocus class='form-control' required>
+                        </div>
+                        <div class='form-group'>
+                            <label for='location' class='control-label'>Location</label>
+                            <input type='text' name='location' id='location' placeholder='Location' autofocus class='form-control' required>
+                        </div>
+                        <div class='form-group'>
+                            <label for='description' class='control-label'>Event Type</label>
+                            <select name='eType' id='eType' autofocus class='form-control'>
+                                <option>Public</option>
+                                <option>Private</option>
+                                <option>RSO Event</option>
+                            </select>
+                        </div>
+                        <div class='form-group'>
+                            <button type='submit' class='btn btn-block'>
+                                Create Event
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                ";
     ?>
 
 </div>
