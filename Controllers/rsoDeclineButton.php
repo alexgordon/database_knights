@@ -27,6 +27,10 @@ $sql = "DELETE FROM rso_pending WHERE rso_id = '$rso_id'";
 
 $conn->query($sql);
 
+$sql = "DELETE FROM rso_table WHERE rso_id = '$rso_id'";
+
+$conn->query($sql);
+
 //Redirect
 header('Location: ../Views/super_admin_homepage.php');
 

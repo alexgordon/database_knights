@@ -115,6 +115,27 @@ else{
     <hr>
     <h3 class="text-center">Current Events</h3>
     <?php
+        $sql = "SELECT E.* FROM events_table E WHERE E.rso_id = '$rso_id'";
+        $event_result = $conn->query($sql);
+
+        while($row = mysqli_fetch_assoc($event_result)) {
+            $eName = $row['name'];
+            $eLocation = $row['location'];
+            $time = $row['time'];
+            $desc = $row['description'];
+            echo
+                "<h4 class='text-center'>$eName</h4>
+                <h5 class='text-center'>$eLocation</h5>
+                <div class='text-center'>
+                    $time <br>
+                    $desc
+                </div>
+            ";
+        }
+
+    ?>
+
+    <?php
         if($resultArray[$y] == $_SESSION['user_id'])
             echo
                 "<hr>
@@ -130,6 +151,14 @@ else{
                             <input type='text' name='location' id='location' placeholder='Location' autofocus class='form-control' required>
                         </div>
                         <div class='form-group'>
+                            <label for='time' class='control-label'>Event Time</label>
+                            <input type='datetime-local' name='time' id='time' autofocus class='form-control' required>
+                        </div>
+                        <div class='form-group'>
+                            <label for='description' class='control-label'>Event Description</label>
+                            <textarea rows='2' maxlength='250' name='description' id='description' placeholder='Description... (Max 250 characters)' autofocus class='form-control' ></textarea>
+                        </div>
+                        <div class='form-group'>
                             <label for='description' class='control-label'>Event Type</label>
                             <select name='eType' id='eType' autofocus class='form-control'>
                                 <option>Public</option>
@@ -137,6 +166,7 @@ else{
                                 <option>RSO Event</option>
                             </select>
                         </div>
+                        <input type='hidden' name='rso' value='$rso_id'>
                         <div class='form-group'>
                             <button type='submit' class='btn btn-block'>
                                 Create Event
