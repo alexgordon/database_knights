@@ -86,12 +86,12 @@ else{
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="user_homepage.php" class="navbar-brand">Compnay Name</a>
+            <a href="user_homepage.php" class="navbar-brand">Company Name</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#">Profile</a>
+                    <a href="user_homepage.php">Profile</a>
                 </li>
                 <li>
                     <a href="../Controllers/logout.php">Logout</a>
@@ -123,8 +123,9 @@ else{
             $eLocation = $row['location'];
             $time = $row['time'];
             $desc = $row['description'];
+            $eid = $row['event_id'];
             echo
-                "<h4 class='text-center'>$eName</h4>
+                "<h4 class='text-center'><a href='event_detail_page.php?eid=$eid'>$eName</a></h4>
                 <h5 class='text-center'>$eLocation</h5>
                 <div class='text-center'>
                     $time <br>
@@ -161,9 +162,9 @@ else{
                         <div class='form-group'>
                             <label for='description' class='control-label'>Event Type</label>
                             <select name='eType' id='eType' autofocus class='form-control'>
-                                <option>Public</option>
-                                <option>Private</option>
                                 <option>RSO Event</option>
+                                <option>Private</option>
+                                <option>Public</option>
                             </select>
                         </div>
                         <input type='hidden' name='rso' value='$rso_id'>

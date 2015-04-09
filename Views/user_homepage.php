@@ -82,7 +82,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="user_homepage.php" class="navbar-brand">Compnay Name</a>
+                <a href="user_homepage.php" class="navbar-brand">Company Name</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
