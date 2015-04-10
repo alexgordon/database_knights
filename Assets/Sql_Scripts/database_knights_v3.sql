@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2015 at 08:26 PM
+-- Generation Time: Apr 10, 2015 at 04:06 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -17,8 +17,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `database_knights`
+-- Database: `database_knights_v3`
 --
+CREATE DATABASE IF NOT EXISTS `database_knights` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `database_knights`;
 
 -- --------------------------------------------------------
 
@@ -26,6 +28,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `events_table`
 --
 
+DROP TABLE IF EXISTS `events_table`;
 CREATE TABLE IF NOT EXISTS `events_table` (
   `event_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
@@ -56,6 +59,7 @@ INSERT INTO `events_table` (`event_id`, `name`, `time`, `location`, `description
 -- Table structure for table `passwords_table`
 --
 
+DROP TABLE IF EXISTS `passwords_table`;
 CREATE TABLE IF NOT EXISTS `passwords_table` (
   `p_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -81,6 +85,7 @@ INSERT INTO `passwords_table` (`p_id`, `user_id`, `password`) VALUES
 -- Table structure for table `privileges_table`
 --
 
+DROP TABLE IF EXISTS `privileges_table`;
 CREATE TABLE IF NOT EXISTS `privileges_table` (
   `priv_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -106,6 +111,7 @@ INSERT INTO `privileges_table` (`priv_id`, `user_id`, `privilege_status`) VALUES
 -- Table structure for table `reviews_table`
 --
 
+DROP TABLE IF EXISTS `reviews_table`;
 CREATE TABLE IF NOT EXISTS `reviews_table` (
   `review_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -124,6 +130,7 @@ CREATE TABLE IF NOT EXISTS `reviews_table` (
 -- Table structure for table `rso_member`
 --
 
+DROP TABLE IF EXISTS `rso_member`;
 CREATE TABLE IF NOT EXISTS `rso_member` (
   `rel_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -148,6 +155,7 @@ INSERT INTO `rso_member` (`rel_id`, `user_id`, `rso_id`) VALUES
 -- Table structure for table `rso_pending`
 --
 
+DROP TABLE IF EXISTS `rso_pending`;
 CREATE TABLE IF NOT EXISTS `rso_pending` (
   `pending_id` int(11) NOT NULL AUTO_INCREMENT,
   `rso_id` int(11) NOT NULL,
@@ -171,6 +179,7 @@ CREATE TABLE IF NOT EXISTS `rso_pending` (
 -- Table structure for table `rso_table`
 --
 
+DROP TABLE IF EXISTS `rso_table`;
 CREATE TABLE IF NOT EXISTS `rso_table` (
   `rso_id` int(11) NOT NULL AUTO_INCREMENT,
   `uni_id` int(11) NOT NULL,
@@ -195,6 +204,7 @@ INSERT INTO `rso_table` (`rso_id`, `uni_id`, `name`, `admin`) VALUES
 -- Table structure for table `universities_table`
 --
 
+DROP TABLE IF EXISTS `universities_table`;
 CREATE TABLE IF NOT EXISTS `universities_table` (
   `uni_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
@@ -217,6 +227,7 @@ INSERT INTO `universities_table` (`uni_id`, `name`, `location`, `description`, `
 -- Table structure for table `users_table`
 --
 
+DROP TABLE IF EXISTS `users_table`;
 CREATE TABLE IF NOT EXISTS `users_table` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `firstName` varchar(45) NOT NULL,

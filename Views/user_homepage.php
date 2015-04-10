@@ -85,6 +85,14 @@
                 <a href="user_homepage.php" class="navbar-brand">Company Name</a>
             </div>
             <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="../Views/find_rso_page.php">Join RSO</a>
+                    </li>
+                    <li>
+                        <a href="../Views/find_events_page.php">Events</a>
+                    </li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="#">Profile</a>

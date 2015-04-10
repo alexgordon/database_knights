@@ -132,9 +132,13 @@ else{
         $event_day = date("l F j, Y", strtotime($event_row['time']));
         $event_time = date("g:i A", strtotime($event_row['time']));
 
-        echo "<h3 class='text-center'>$event_day</h4>
-              <h4 class='text-center'>$event_time</h5>
-              <h3 class='text-center'>".$event_row['location']."</h4>
+        $location = $event_row['location'];
+        $map_location = str_replace(' ', '+',$location );
+
+        echo "<h3 class='text-center'>$event_day</h3>
+              <h4 class='text-center'>$event_time</h4>
+              <h3 class='text-center'>".$event_row['location']."</h3>
+              <img class='center-block img-responsive' boarder='0' src='https://maps.googleapis.com/maps/api/staticmap?center=".$map_location."&zoom=14&size=400x400&markers=color:blue%7Clabel:S%7C".$map_location."'>
               <div class='text-center'>
               ".$event_row['description']."
               </div>";
