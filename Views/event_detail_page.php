@@ -164,19 +164,33 @@ else{
             <?php
             //foreach ($resultArray as $row) {
             //  foreach ($row as $comment) {
-            for($i=0; $i<$counter; $i++){
+            for($i=0; $i<$counter; $i++) {
                 //echo "<p>" . $comment . "</p>";
-                echo "<li>".
-                    "<div class='commenterImage'>".
-                    "<img src='http://cdn.flaticon.com/png/256/24029.png' />".
-                    "</div>".
-                    "<div class='commentText'>".
-                    "<p><b>".$resultArray[$rating_index][$i]."</b>  "
-                    .$resultArray[$comments_index][$i]."</p>".
-                    "<span class='date sub-text'>".$resultArray[$user_index][$i]." - ".$resultArray[$date_index][$i]."</span>".
+                echo "<li>" .
+                    "<div class='commenterImage'>" .
+                    "<img src='http://cdn.flaticon.com/png/256/24029.png' />" .
+                    "</div>" .
+                    "<div class='commentText'>";
+                if ($resultArray[$rating_index][$i] == 5) {
+                    echo "<p>&#10029 &#10029 &#10029 &#10029 &#10029</p>";
+                }
+                else if ($resultArray[$rating_index][$i] == 4) {
+                    echo "<p>&#10029 &#10029 &#10029 &#10029 &#10025</p>";
+                }
+                else if ($resultArray[$rating_index][$i] == 3) {
+                    echo "<p>&#10029 &#10029 &#10029 &#10025 &#10025</p>";
+                }
+                else if ($resultArray[$rating_index][$i] == 2) {
+                    echo "<p>&#10029 &#10029 &#10025 &#10025 &#10025</p>";
+                }
+                else if ($resultArray[$rating_index][$i] == 1) {
+                    echo "<p>&#10029 &#10025 &#10025 &#10025 &#10025</p>";
+                }
 
-                    "</div>".
-                    "</li>";
+                echo "<p>". $resultArray[$comments_index][$i] ."</p>" .
+                     "<span class='date sub-text'>" . $resultArray[$user_index][$i] . " - " . $resultArray[$date_index][$i] . "</span>".
+                     "</div>".
+                     "</li>";
             }
 
             ?>
