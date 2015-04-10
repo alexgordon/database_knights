@@ -27,6 +27,8 @@ else{
 
     $rso_id = $_GET['rso_id'];
 
+    $user_privilege = $_GET['priv'];
+
 //Create Connection
     $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -113,32 +115,30 @@ else{
         echo "<h3 class='text-center'>".$resultArray[$x]."</h3>";
     ?>
     <hr>
-    <h3 class="text-center">Current Events</h3>
     <?php
-        $sql = "SELECT E.* FROM events_table E WHERE E.rso_id = '$rso_id'";
-        $event_result = $conn->query($sql);
+        if($user_privilege == 1) {
+            $sql = "SELECT E.* FROM events_table E WHERE E.rso_id = '$rso_id'";
+            $event_result = $conn->query($sql);
 
-        while($row = mysqli_fetch_assoc($event_result)) {
-            $eName = $row['name'];
-            $eLocation = $row['location'];
-            $time = $row['time'];
-            $desc = $row['description'];
-            $eid = $row['event_id'];
-            echo
-                "<h4 class='text-center'><a href='event_detail_page.php?eid=$eid'>$eName</a></h4>
+            while ($row = mysqli_fetch_assoc($event_result)) {
+                $eName = $row['name'];
+                $eLocation = $row['location'];
+                $time = $row['time'];
+                $desc = $row['description'];
+                $eid = $row['event_id'];
+                echo
+                "<h3 class='text-center'>Current Events</h3>
+                <h4 class='text-center'><a href='event_detail_page.php?eid=$eid'>$eName</a></h4>
                 <h5 class='text-center'>$eLocation</h5>
                 <div class='text-center'>
                     $time <br>
                     $desc
                 </div>
             ";
-        }
+            }
 
-    ?>
-
-    <?php
-        if($resultArray[$y] == $_SESSION['user_id'])
-            echo
+            if ($resultArray[$y] == $_SESSION['user_id'])
+                echo
                 "<hr>
                 <h3 class='text-center'>Create Event</h3>
                 <form action='../Controllers/createRsoEvent.php' method='post'>
@@ -176,6 +176,23 @@ else{
                     </div>
                 </form>
                 ";
+        }
+        else{
+            echo
+                "<form action='../Controllers/addRsoUser.php' method='post'>
+                    <div class='col-sm-4 col-sm-offset-4'>
+                        <input type='hidden' name='rso_id' value='$rso_id'>
+                        <input type='hidden' name='user_id' value='$user_id'>
+                        <div class='form-group'>
+                            <button type='submit' class='btn btn-block'>
+                                Join RSO
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                ";
+
+        }
     ?>
 
 </div>

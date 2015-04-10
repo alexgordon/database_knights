@@ -122,7 +122,7 @@
                 <?php
                     for($i = 0; $i<$counter; $i++) {
                         echo
-                            "<h4 class='text-center'><a href='../Views/user_rso_page.php?rso_id=".$resultArray[$y][$i]."'> ".$resultArray[$x][$i]."</a></h4>";
+                            "<h4 class='text-center'><a href='../Views/user_rso_page.php?rso_id=".$resultArray[$y][$i]."&priv=1'> ".$resultArray[$x][$i]."</a></h4>";
                     }
                 ?>
             </div>
