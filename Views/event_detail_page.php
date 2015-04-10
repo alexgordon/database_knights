@@ -54,7 +54,7 @@ else{
     $rso_row = $rso_result->fetch_assoc();
 
 //GET comments
-    $sql = "SELECT R.comments, R.reviewDate, U.firstName, U.lastName
+    $sql = "SELECT R.comments, R.reviewDate, R.rating, U.firstName, U.lastName
             FROM reviews_table R, users_table U
             WHERE R.event_id='$event_id' AND R.user_id = U.user_id";
     $result = $conn->query($sql);
@@ -64,12 +64,14 @@ else{
     $comments_index=0;
     $date_index=1;
     $user_index=3;
+    $rating_index=4;
     while($rows = $result->fetch_assoc()){
         //   $resultArray[$rows['comment']][$counter] = $rows['comment'];
         //   $dateArray[$rows['commentDate']][$counter] = $rows['commentDate'];
         $resultArray[$comments_index][$counter] = $rows['comments'];
         $resultArray[$date_index][$counter] = $rows['reviewDate'];
         $resultArray[$user_index][$counter] = $rows['firstName']." ".$rows['lastName'];
+        $resultArray[$rating_index][$counter] = $rows['rating'];
         $counter++;
     }
 
@@ -137,8 +139,9 @@ else{
 
         echo "<h3 class='text-center'>$event_day</h3>
               <h4 class='text-center'>$event_time</h4>
+              <h5 class='text-center'>Rating: ".$event_row['rating']." - From ".$event_row['rating_count']." reviews</h5>
               <h3 class='text-center'>".$event_row['location']."</h3>
-              <img class='center-block img-responsive' boarder='0' src='https://maps.googleapis.com/maps/api/staticmap?center=".$map_location."&zoom=14&size=400x400&markers=color:blue%7Clabel:S%7C".$map_location."'>
+              <img class='center-block img-responsive' border='0' src='https://maps.googleapis.com/maps/api/staticmap?center=".$map_location."&zoom=14&size=400x400&markers=color:blue%7Clabel:S%7C".$map_location."'>
               <div class='text-center'>
               ".$event_row['description']."
               </div>";
@@ -168,7 +171,9 @@ else{
                     "<img src='http://cdn.flaticon.com/png/256/24029.png' />".
                     "</div>".
                     "<div class='commentText'>".
-                    "<p>".$resultArray[$comments_index][$i]."</p>"."<span class='date sub-text'>".$resultArray[$user_index][$i]." - ".$resultArray[$date_index][$i]."</span>".
+                    "<p><b>".$resultArray[$rating_index][$i]."</b>  "
+                    .$resultArray[$comments_index][$i]."</p>".
+                    "<span class='date sub-text'>".$resultArray[$user_index][$i]." - ".$resultArray[$date_index][$i]."</span>".
 
                     "</div>".
                     "</li>";
@@ -178,13 +183,27 @@ else{
         </ul>
 
         <form method="post" action="../Controllers/updateDiscussion.php" class="form-inline">
-            <div class="form-group">
-                <input class="form-control" name="comment" type="text" placeholder="Your comments" />
-            </div>
-            <input type='hidden' name='eid' value='<?php echo $event_id ?>'>
-            <div class="form-group">
-                <button type="submit" class="btn btn-default">Add</button>
-            </div>
+
+                <div class="form-control-static">
+                <?php
+                if (strtotime($event_row['time']) < time()) {
+                    echo "<label for='rating' class='control-label'>Rating</label>
+                    <select class='form-control'name='rating'id='rating'>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>";
+                }
+                ?>
+                    <input class="form-control" name="comment" type="text" placeholder="Your comments" />
+                </div>
+                <input type='hidden' name='eid' value='<?php echo $event_id ?>'>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default">Add</button>
+                </div>
+
         </form>
     </div>
 </div>
