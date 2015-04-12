@@ -29,6 +29,17 @@ else{
 
     }
 
+//COUNT Users
+    $sql = "SELECT Uni.uni_id, COUNT(U.user_id) FROM users_table U, universities_table Uni WHERE U.uni_id = Uni.uni_id GROUP BY Uni.uni_id";
+    $users_result = $conn->query($sql);
+
+    while ($user_count_array = $users_result->fetch_assoc()) {
+        $num_students = $user_count_array['COUNT(U.user_id)'];
+        $uni_id = $user_count_array['uni_id'];
+        $sql = "UPDATE universities_table U SET U.num_students = '$num_students' WHERE uni_id = '$uni_id'";
+        $conn->query($sql);
+    }
+
 //GET comments
     $sql = "SELECT * From universities_table";
     $result = $conn->query($sql);
@@ -95,7 +106,7 @@ else{
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="super_admin_homepage.php" class="navbar-brand">Compnay Name</a>
+            <a href="super_admin_homepage.php" class="navbar-brand">Company Name</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">

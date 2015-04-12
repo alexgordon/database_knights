@@ -31,21 +31,29 @@ if ($conn->connect_error) {
 
 }
 
-//Create RSO
-$sql = "INSERT INTO rso_table(uni_id,name,admin)
-        VALUES ('$uni_id','$rName',(SELECT U.user_id FROM users_table U WHERE U.email = '$admin'))";
+$sql = "SELECT COUNT(U.user_id) FROM users_table U
+        WHERE (U.email = '$admin' OR U.email = '$mem2' OR U.email = '$mem3' OR U.email = '$mem4' OR U.email = '$mem5')";
 
-$conn->query($sql);
+$count_result = $conn->query($sql);
+$row = $count_result->fetch_array();
 
-$sql = "INSERT INTO rso_pending(rso_id,admin,mem2,mem3,mem4,mem5)
-        VALUES ((SELECT R.rso_id FROM rso_table R WHERE R.admin = (SELECT U.user_id FROM users_table U WHERE U.email = '$admin') AND R.uni_id = '$uni_id' AND R.name = '$rName'),
-        (SELECT U.user_id FROM users_table U WHERE U.email = '$admin'),
-        (SELECT U.user_id FROM users_table U WHERE U.email = '$mem2'),
-        (SELECT U.user_id FROM users_table U WHERE U.email = '$mem3'),
-        (SELECT U.user_id FROM users_table U WHERE U.email = '$mem4'),
-        (SELECT U.user_id FROM users_table U WHERE U.email = '$mem5'))";
+if ($row[0] == 5) {
+    $sql = "INSERT INTO rso_table(uni_id,name,admin)
+            VALUES ('$uni_id','$rName',(SELECT U.user_id FROM users_table U WHERE U.email = '$admin'))";
 
-$conn->query($sql);
+    $conn->query($sql);
+
+    $sql = "INSERT INTO rso_pending(rso_id,admin,mem2,mem3,mem4,mem5)
+            VALUES ((SELECT R.rso_id FROM rso_table R WHERE R.admin = (SELECT U.user_id FROM users_table U WHERE U.email = '$admin') AND R.uni_id = '$uni_id' AND R.name = '$rName'),
+            (SELECT U.user_id FROM users_table U WHERE U.email = '$admin'),
+            (SELECT U.user_id FROM users_table U WHERE U.email = '$mem2'),
+            (SELECT U.user_id FROM users_table U WHERE U.email = '$mem3'),
+            (SELECT U.user_id FROM users_table U WHERE U.email = '$mem4'),
+            (SELECT U.user_id FROM users_table U WHERE U.email = '$mem5'))";
+
+    $conn->query($sql);
+}
+
 
 $conn->close();
 

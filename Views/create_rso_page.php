@@ -67,6 +67,7 @@ else{
 <!--Scripts and Styles-->
 <script src="../Assets/Scripts/jquery-2.1.3.min.js"></script>
 <script src="../Assets/Scripts/bootstrap.min.js"></script>
+<script src="../Assets/Scripts/form_validate.js"></script>
 <link rel="stylesheet" href="../Assets/Styles/bootstrap.min.css">
 <link rel="stylesheet" href="../Assets/Styles/bootstrap-theme.min.css">
 <link rel="stylesheet" href="../Assets/Styles/home_styles.css">
@@ -144,25 +145,25 @@ else{
                 </div>
                 <div class="form-group">
                     <label for="mem2" class="control-label">Second Member</label>
-                    <input type="email" name="mem2" id="mem2" placeholder="Second Member's Email" autofocus class="form-control" required >
+                    <input type="email" name="mem2" id="mem2" placeholder="Second Member's Email" autofocus class="form-control email_input" required >
                 </div>
                 <div class="form-group">
                     <label for="mem3" class="control-label">Third Member</label>
-                    <input type="email" name="mem3" id="mem3" placeholder="Third Member's Email" autofocus class="form-control" required>
+                    <input type="email" name="mem3" id="mem3" placeholder="Third Member's Email" autofocus class="form-control email_input" required>
                 </div>
                 <div class="form-group">
                     <label for="mem4" class="control-label">Fourth Member</label>
-                    <input type="email" name="mem4" id="mem4" placeholder="Fourth Member's Email" autofocus class="form-control" required>
+                    <input type="email" name="mem4" id="mem4" placeholder="Fourth Member's Email" autofocus class="form-control email_input" required>
                 </div>
                 <div class="form-group">
                     <label for="mem5" class="control-label">Fifth Member</label>
-                    <input type="email" name="mem5" id="mem5" placeholder="Fifth Member's Email" autofocus class="form-control" required>
+                    <input type="email" name="mem5" id="mem5" placeholder="Fifth Member's Email" autofocus class="form-control email_input" required>
                 </div>
                 <?php
                 echo "<input name='uni_id' id='uni_id' value='".$_SESSION['uni_id']."' type='hidden'>";
                 ?>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-block">
+                    <button type="submit" class="btn btn-block" id="submit-button">
                         Create RSO
                     </button>
                 </div>
