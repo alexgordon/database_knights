@@ -49,19 +49,21 @@ else{
         $counter++;
     }
 
-//GET RSO's
-    $sql = "SELECT R.*, U.email FROM rso_table R INNER JOIN users_table U ON R.admin=U.user_id Inner Join rso_pending RP ON R.rso_id = RP.rso_id";
+//GET Events
+    $sql = "SELECT NRE.* FROM non_rso_events_table NRE";
     $result = $conn->query($sql);
-    $rsoArray = array();
-    $rsoCounter = 0;
-    while($rows = $result->fetch_assoc()){
+    $eventArray = array();
+    $eventCounter = 0;
 
-        $rsoArray[$x][$rsoCounter] = $rows['name'];
-        $rsoArray[$y][$rsoCounter] = $rows['email'];
-        $rsoArray[$two][$rsoCounter] = $rows['rso_id'];
-        $rsoCounter++;
+    while($eventRows = $result->fetch_assoc()){
+        $eventArray[$x][$eventCounter] = $eventRows['nre_name'];
+        $eventArray[$y][$eventCounter] = $eventRows['nre_privateEvent'];
+        $eventArray[$two][$eventCounter] =$eventRows['nre_location'];
+        $eventArray[$three][$eventCounter] =$eventRows['nre_id'];
+
+        $eventCounter++;
     }
-}
+    }
 
 
 ?>
@@ -102,9 +104,6 @@ else{
                 <li>
                     <a href="../Views/rso_applications_page.php">RSO Applications</a>
                 </li>
-                <li>
-                    <a href="../Views/events_applications_page.php">Event Applications</a>
-                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -120,60 +119,50 @@ else{
 <!--Header-->
 
 <div class="container-fluid">
-<!--    --><?php
-/*    echo "<h3 class='text-center'>Welcome Super Admin " . $_SESSION["firstName"] . " " . $_SESSION["lastName"]."</h3>";
-    */?>
+    <!--    --><?php
+    /*    echo "<h3 class='text-center'>Welcome Super Admin " . $_SESSION["firstName"] . " " . $_SESSION["lastName"]."</h3>";
+        */?>
+
     <div class="row">
-        <h3 class="text-center">Current Universities</h3>
+        <h3 class="text-center">Event Applications</h3>
     </div>
     <div>
         <table class="table table-bordered" id="example">
             <thead>
-                <tr>
-                    <th class="text-center">University</th>
-                    <th class="text-center">Location</th>
-                    <th class="text-center">Description</th>
-                    <th class="text-center">Number of Students</th>
-                </tr>
+            <tr>
+                <th class='text-center'>Event</th>
+                <th class='text-center'>Location</th>
+                <th class='text-center'>Accept Application</th>
+                <th class='text-center'>Decline Application</th>
+            </tr>
             </thead>
             <tbody>
-                <?php
-                    for($i=0; $i<$counter; $i++) {
-                        echo
-                            "<tr>
-                                <td class='text-center'>".$resultArray[$x][$i]."</td>
-                                <td class='text-center'>".$resultArray[$y][$i]."</td>
-                                <td class='text-center'>".$resultArray[$two][$i]."</td>
-                                <td class='text-center'>".$resultArray[$three][$i]."</td>
+            <?php
+            //Add rows with data from database
+            for($i=0; $i < $eventCounter; $i++){
+                if($eventArray[$y][$i] == "Private_pending" || $eventArray[$y][$i] == "Public_pending") {
+                    echo
+                        "<tr>
+                                <td class='text-center'>" . $eventArray[$x][$i] . "</td>
+                                <td class='text-center'>" . $eventArray[$two][$i] . "</td>
+                                <td><form action='../Controllers/eventAcceptButton.php' method='post'>
+                                        <button class='btn btn-block' type='submit'> Accept </button>
+                                        <input name='privateEvent' type='hidden' value='" . $eventArray[$y][$i] . "'>
+                                        <input name='nre_id' type='hidden' value='" . $eventArray[$three][$i] . "'>
+                                    </form>
+                                </td>
+                                <td><form action='../Controllers/eventDeclineButton.php' method='post'>
+                                        <button class='btn btn-block' type='submit'> Decline </button>
+                                        <input name='privateEvent' type='hidden' value='" . $eventArray[$y][$i] . "'>
+                                        <input name='nre_id' type='hidden' value='" . $eventArray[$three][$i] . "'>
+                                    </form>
+                                </td>
                             </tr>";
-                        }
-                ?>
+                }
+            }
+            ?>
             </tbody>
         </table>
-    </div>
-    <div class="row">
-        <h3 class="text-center">Add New University</h3>
-        <form action="../Controllers/createUniversity.php" method="post">
-            <div class="col-sm-4 col-sm-offset-4">
-                <div class="form-group">
-                    <label for="uName" class="control-label">University Name</label>
-                    <input type="text" name="uName" id="uName" placeholder="University Name" autofocus class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="location" class="control-label">Location</label>
-                    <input type="text" name="location" id="location" placeholder="Location" autofocus class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="description" class="control-label">Description</label>
-                    <textarea type="comment" name="description" id="description" placeholder="Description" autofocus class="form-control"></textarea>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-block">
-                        Create University
-                    </button>
-                </div>
-            </div>
-        </form>
     </div>
 </div>
 

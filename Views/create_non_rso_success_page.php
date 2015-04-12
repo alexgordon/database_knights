@@ -123,45 +123,10 @@ else{
 <!--Header-->
 
 <div class="container-fluid">
-    <?php
-    echo "<h2 class='text-center'>".$row['uni_name']."</h2>";
-    ?>
 
-    <hr>
-    <h3 class='text-center'>Create Event</h3>
-    <form action='../Controllers/createNonRsoEvent.php' method='post'>
-        <div class='col-sm-4 col-sm-offset-4'>
-            <div class='form-group'>
-                <label for='eName' class='control-label'>Event Name</label>
-                <input type='text' name='eName' id='eName' placeholder='Event Name' autofocus class='form-control' required>
-            </div>
-            <div class='form-group'>
-                <label for='location' class='control-label'>Location</label>
-                <input type='text' name='location' id='location' placeholder='Location' autofocus class='form-control' required>
-            </div>
-            <div class='form-group'>
-                <label for='time' class='control-label'>Event Time</label>
-                <input type='datetime-local' name='time' id='time' autofocus class='form-control' required>
-            </div>
-            <div class='form-group'>
-                <label for='description' class='control-label'>Event Description</label>
-                <textarea rows='2' maxlength='250' name='description' id='description' placeholder='Description... (Max 250 characters)' autofocus class='form-control' ></textarea>
-            </div>
-            <div class='form-group'>
-                <label for='description' class='control-label'>Event Type</label>
-                <select name='eType' id='eType' autofocus class='form-control'>
-                    <option>Private</option>
-                    <option>Public</option>
-                </select>
-            </div>
-            <input type="hidden" value='<?php echo $uni_id ?>' name="uni_id">
-            <div class='form-group'>
-                <button type='submit' class='btn btn-block'>
-                    Create Event
-                </button>
-            </div>
-        </div>
-    </form>
+    <h3 class='text-center'>Your Event Has Been Submitted!</h3>
+    <p class='text-center'>The event that you created is currently under review.  Please be patient while our staff processes your request.</p>
+
 
 </div>
 

@@ -78,7 +78,24 @@ else{
 
     }
 
+//GET NRE Events
+    // $sql = "SELECT E.* FROM events_table E";
+    $sql= "SELECT NRE.*,UNI.uni_name FROM non_rso_events_table NRE INNER JOIN universities_table UNI ON NRE.uni_id = UNI.uni_id";
+    $result = $conn->query($sql);
+    $nreResultArray = array();
+    $nreCounter = 0;
 
+    while($rows = $result->fetch_assoc()) {
+
+        $nreResultArray[$x][$nreCounter] = $rows['nre_name'];
+        $nreResultArray[$y][$nreCounter] = $rows['nre_id'];
+        $nreResultArray[$z][$nreCounter] = $rows['nre_privateEvent'];
+        $nreResultArray[$location_pointer][$nreCounter] = $rows['nre_location'];
+        $nreResultArray[$time_pointer][$nreCounter] = $rows['nre_time'];
+        $nreResultArray[$uniName_pointer][$nreCounter] = $rows['uni_name'];
+        $nreCounter++;
+
+    }
 
 
 }
@@ -187,6 +204,23 @@ else{
                             //"<h4 class='text-center'><a href='../Views/event_detail_page.php?eid=" . $resultArray[$y][$i] . "'> " . $resultArray[$x][$i] . "</a></h4>";
                     }
                 }
+
+                //// nre events/////
+                for($i = 0; $i<$nreCounter; $i++) {
+                    if($nreResultArray[$z][$i] == "Private" && $row['uni_name'] == $nreResultArray[$uniName_pointer][$i]) {
+                        $event_day = date("l F j, Y", strtotime($nreResultArray[$time_pointer][$i]));
+                        $event_time = date("g:i A", strtotime($nreResultArray[$time_pointer][$i]));
+                        echo
+                            "<tr>
+                                <td class='text-center'><a href='../Views/nre_detail_page.php?nre_id=" . $nreResultArray[$y][$i] . "'> " . $nreResultArray[$x][$i] . "</a></td>
+                                <td class='text-center'>".$nreResultArray[$location_pointer][$i]."</td>
+                                <td class='text-center'>".$event_day."</td>
+                                <td class='text-center'>".$event_time."</td>
+                            </tr>";
+                        //"<h4 class='text-center'><a href='../Views/event_detail_page.php?eid=" . $resultArray[$y][$i] . "'> " . $resultArray[$x][$i] . "</a></h4>";
+                    }
+                }
+
                 ?>
             </tbody>
         </table>
@@ -225,6 +259,22 @@ else{
                                 <td class='text-center'>".$resultArray[$uniName_pointer][$i]."</td>
                                 <td class='text-center'><a href='../Views/event_detail_page.php?eid=" . $resultArray[$y][$i] . "'> " . $resultArray[$x][$i] . "</a></td>
                                 <td class='text-center'>".$resultArray[$location_pointer][$i]."</td>
+                                <td class='text-center'>".$event_day."</td>
+                                <td class='text-center'>".$event_time."</td>
+                            </tr>";
+                        //"<h4 class='text-center'><a href='../Views/event_detail_page.php?eid=" . $resultArray[$y][$i] . "'> " . $resultArray[$x][$i] . "</a></h4>";
+                    }
+                }
+                ///// nre events///////
+                for($i = 0; $i<$nreCounter; $i++) {
+                    if($nreResultArray[$z][$i] == "Public") {
+                        $event_day = date("l F j, Y", strtotime($nreResultArray[$time_pointer][$i]));
+                        $event_time = date("g:i A", strtotime($nreResultArray[$time_pointer][$i]));
+                        echo
+                            "<tr>
+                                <td class='text-center'>".$nreResultArray[$uniName_pointer][$i]."</td>
+                                <td class='text-center'><a href='../Views/nre_detail_page.php?nre_id=" . $nreResultArray[$y][$i] . "'> " . $nreResultArray[$x][$i] . "</a></td>
+                                <td class='text-center'>".$nreResultArray[$location_pointer][$i]."</td>
                                 <td class='text-center'>".$event_day."</td>
                                 <td class='text-center'>".$event_time."</td>
                             </tr>";
