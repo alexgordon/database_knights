@@ -26,7 +26,7 @@ $rso_id = $_POST['rso'];
 $description = $_POST['description'];
 $time = $_POST['time'];
 
-$sql = "INSERT INTO events_table(name, time, location, description, rso_id, privateEvent)
+$sql = "INSERT INTO events_table(e_name, time, location, description, rso_id, privateEvent)
         VALUES ('$eName', '$time' ,'$eLocation', '$description' ,'$rso_id', '$eType')";
 
 $conn->query($sql);
@@ -34,6 +34,6 @@ $conn->query($sql);
 $conn->close();
 
 //Redirect
-header('Location: ../Views/user_rso_page.php?rso_id='.$rso_id);
+header('Location: ../Views/user_rso_page.php?rso_id='.$rso_id.'&priv=1');
 
 ?>

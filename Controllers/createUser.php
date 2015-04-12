@@ -41,7 +41,7 @@ else {
 
     //Insert New User
     $sql = "INSERT INTO users_table(firstName,lastName,email,uni_id)
-    VALUES ('$firstName','$lastName','$email',(SELECT UNI.uni_id FROM universities_table UNI WHERE UNI.name = '$userUniversity'))";
+    VALUES ('$firstName','$lastName','$email',(SELECT UNI.uni_id FROM universities_table UNI WHERE UNI.uni_name = '$userUniversity'))";
 
     $conn->query($sql);
 

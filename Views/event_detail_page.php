@@ -37,7 +37,7 @@ else{
     }
 
 //GET University
-    $sql = "SELECT UNI.name FROM universities_table UNI WHERE UNI.uni_id = '$uni_id'";
+    $sql = "SELECT UNI.uni_name FROM universities_table UNI WHERE UNI.uni_id = '$uni_id'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
 
@@ -108,6 +108,30 @@ else{
             <a href="user_homepage.php" class="navbar-brand">Company Name</a>
         </div>
         <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">RSO<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="../Views/find_rso_page.php">Join RSO</a>
+                        </li>
+                        <li>
+                            <a href="../Views/create_rso_page.php">Create RSO</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Events <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="../Views/find_events_page.php">View Events</a>
+                        </li>
+                        <li>
+                            <a href="../Views/create_events_page.php">Create Events</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="user_homepage.php">Profile</a>
@@ -124,9 +148,9 @@ else{
 <div class="container-fluid">
 
     <?php
-    echo "<h2 class='text-center'>".$row['name']."</h2>";
+    echo "<h2 class='text-center'>".$row['uni_name']."</h2>";
 
-    echo "<h3 class='text-center'>".$rso_row['name']." - <b>".$event_row['name']."</b></h3>";
+    echo "<h3 class='text-center'>".$rso_row['name']." - <b>".$event_row['e_name']."</b></h3>";
 
     ?>
     <hr>

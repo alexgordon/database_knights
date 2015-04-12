@@ -39,7 +39,7 @@ else{
     $row = $result->fetch_assoc();
 
 //GET RSO's
-    $sql = "SELECT DISTINCT R.name, R.rso_id FROM rso_table R, rso_member RM WHERE R.rso_id = RM.rso_id AND R.uni_id = '$uni_id'";
+    $sql = "SELECT R.name, R.rso_id FROM rso_table R, rso_member RM WHERE R.rso_id = RM.rso_id AND RM.user_id = '$user_id'";
     $result = $conn->query($sql);
     $resultArray = array();
     $counter = 0;
@@ -52,20 +52,6 @@ else{
         $counter++;
 
     }
-
-//GET User's RSO's
-    $sql = "SELECT RM.rso_id FROM rso_member RM WHERE RM.user_id = '$user_id'";
-    $result = $conn->query($sql);
-    $userRSOArray = array();
-    $user_counter = 0;
-    while($user_rows = $result->fetch_assoc()){
-
-        $userRSOArray[$user_counter] = $user_rows['rso_id'];
-        $user_counter++;
-    }
-
-
-
 }
 
 ?>
@@ -139,33 +125,51 @@ else{
 <div class="container-fluid">
     <?php
     echo "<h2 class='text-center'>".$row['uni_name']."</h2>";
+    echo "<h3 class='text-center'>Welcome " . $_SESSION["firstName"] . " " . $_SESSION["lastName"]."</h3>";
     ?>
-    <!--       <div class="row">
-               <h4 class="text-center">Please add to the <a href="../Views/forum.php">discussion</a>
-               </h4>
-           </div>-->
-    <hr>
-    <div class="row">
-        <h3 class="text-center">Join a RSO</h3>
-        <div>
-            <?php
-            for($i = 0; $i<$counter; $i++) {
-                $resultCounter = 0;
 
-                for($j = 0; $j < $user_counter; $j++){
-                    if($resultArray[$y][$i] == $userRSOArray[$j]){
-                        $resultCounter++;
-                    }
-                }
-
-                if($resultCounter == 0) {
-                    echo
-                        "<h4 class='text-center'><a href='../Views/user_rso_page.php?rso_id=" . $resultArray[$y][$i] . "&priv=0'> " . $resultArray[$x][$i] . "</a></h4>";
-                }
-            }
-            ?>
-        </div>
+    <div>
+        <h3 class="text-center">Create a new RSO</h3>
+        <form action="../Controllers/createRSO.php" method="post">
+            <div class="col-sm-4 col-sm-offset-4">
+                <div class="form-group">
+                    <label for="rName" class="control-label">RSO Name</label>
+                    <input type="text" name="rName" id="rName" placeholder="RSO Name" autofocus class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin" class="control-label">Admin</label>
+                    <?php
+                    echo "<input type='email' name='admin' id='admin' placeholder='First Member's Email value='".$_SESSION['email']."' autofocus class='form-control' required readonly>";
+                    ?>
+                </div>
+                <div class="form-group">
+                    <label for="mem2" class="control-label">Second Member</label>
+                    <input type="email" name="mem2" id="mem2" placeholder="Second Member's Email" autofocus class="form-control" required >
+                </div>
+                <div class="form-group">
+                    <label for="mem3" class="control-label">Third Member</label>
+                    <input type="email" name="mem3" id="mem3" placeholder="Third Member's Email" autofocus class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="mem4" class="control-label">Fourth Member</label>
+                    <input type="email" name="mem4" id="mem4" placeholder="Fourth Member's Email" autofocus class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="mem5" class="control-label">Fifth Member</label>
+                    <input type="email" name="mem5" id="mem5" placeholder="Fifth Member's Email" autofocus class="form-control" required>
+                </div>
+                <?php
+                echo "<input name='uni_id' id='uni_id' value='".$_SESSION['uni_id']."' type='hidden'>";
+                ?>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-block">
+                        Create RSO
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
+
 </div>
 
 <!--Footer-->

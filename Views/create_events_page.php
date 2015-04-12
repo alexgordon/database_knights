@@ -39,7 +39,7 @@ else{
     $row = $result->fetch_assoc();
 
 //GET RSO's
-    $sql = "SELECT DISTINCT R.name, R.rso_id FROM rso_table R, rso_member RM WHERE R.rso_id = RM.rso_id AND R.uni_id = '$uni_id'";
+    $sql = "SELECT R.name, R.rso_id FROM rso_table R, rso_member RM WHERE R.rso_id = RM.rso_id AND RM.user_id = '$user_id'";
     $result = $conn->query($sql);
     $resultArray = array();
     $counter = 0;
@@ -52,20 +52,6 @@ else{
         $counter++;
 
     }
-
-//GET User's RSO's
-    $sql = "SELECT RM.rso_id FROM rso_member RM WHERE RM.user_id = '$user_id'";
-    $result = $conn->query($sql);
-    $userRSOArray = array();
-    $user_counter = 0;
-    while($user_rows = $result->fetch_assoc()){
-
-        $userRSOArray[$user_counter] = $user_rows['rso_id'];
-        $user_counter++;
-    }
-
-
-
 }
 
 ?>
@@ -139,33 +125,45 @@ else{
 <div class="container-fluid">
     <?php
     echo "<h2 class='text-center'>".$row['uni_name']."</h2>";
+    echo "<h3 class='text-center'>Welcome " . $_SESSION["firstName"] . " " . $_SESSION["lastName"]."</h3>";
     ?>
-    <!--       <div class="row">
-               <h4 class="text-center">Please add to the <a href="../Views/forum.php">discussion</a>
-               </h4>
-           </div>-->
+
     <hr>
-    <div class="row">
-        <h3 class="text-center">Join a RSO</h3>
-        <div>
-            <?php
-            for($i = 0; $i<$counter; $i++) {
-                $resultCounter = 0;
-
-                for($j = 0; $j < $user_counter; $j++){
-                    if($resultArray[$y][$i] == $userRSOArray[$j]){
-                        $resultCounter++;
-                    }
-                }
-
-                if($resultCounter == 0) {
-                    echo
-                        "<h4 class='text-center'><a href='../Views/user_rso_page.php?rso_id=" . $resultArray[$y][$i] . "&priv=0'> " . $resultArray[$x][$i] . "</a></h4>";
-                }
-            }
-            ?>
+    <h3 class='text-center'>Create Event</h3>
+    <form action='../Controllers/createRsoEvent.php' method='post'>
+        <div class='col-sm-4 col-sm-offset-4'>
+            <div class='form-group'>
+                <label for='eName' class='control-label'>Event Name</label>
+                <input type='text' name='eName' id='eName' placeholder='Event Name' autofocus class='form-control' required>
+            </div>
+            <div class='form-group'>
+                <label for='location' class='control-label'>Location</label>
+                <input type='text' name='location' id='location' placeholder='Location' autofocus class='form-control' required>
+            </div>
+            <div class='form-group'>
+                <label for='time' class='control-label'>Event Time</label>
+                <input type='datetime-local' name='time' id='time' autofocus class='form-control' required>
+            </div>
+            <div class='form-group'>
+                <label for='description' class='control-label'>Event Description</label>
+                <textarea rows='2' maxlength='250' name='description' id='description' placeholder='Description... (Max 250 characters)' autofocus class='form-control' ></textarea>
+            </div>
+            <div class='form-group'>
+                <label for='description' class='control-label'>Event Type</label>
+                <select name='eType' id='eType' autofocus class='form-control'>
+                    <option>RSO Event</option>
+                    <option>Private</option>
+                    <option>Public</option>
+                </select>
+            </div>
+            <div class='form-group'>
+                <button type='submit' class='btn btn-block'>
+                    Create Event
+                </button>
+            </div>
         </div>
-    </div>
+    </form>
+
 </div>
 
 <!--Footer-->

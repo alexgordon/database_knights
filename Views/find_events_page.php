@@ -34,7 +34,7 @@ else{
     }
 
 //GET University
-    $sql = "SELECT UNI.name FROM universities_table UNI WHERE UNI.uni_id = '$uni_id'";
+    $sql = "SELECT UNI.uni_name FROM universities_table UNI WHERE UNI.uni_id = '$uni_id'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
 
@@ -54,19 +54,26 @@ else{
     }*/
 
 //GET Public Events
-    $sql = "SELECT E.* FROM events_table E";
+   // $sql = "SELECT E.* FROM events_table E";
+    $sql= "SELECT E.*,UNI.uni_name FROM events_table E INNER JOIN rso_table R ON E.rso_id=R.rso_id INNER JOIN universities_table UNI ON R.uni_id = UNI.uni_id";
     $result = $conn->query($sql);
     $resultArray = array();
     $counter = 0;
     $x = 0;
     $y = 1;
     $z = 2;
+    $location_pointer = 3;
+    $time_pointer = 4;
+    $uniName_pointer = 5;
 
     while($rows = $result->fetch_assoc()) {
 
-        $resultArray[$x][$counter] = $rows['name'];
+        $resultArray[$x][$counter] = $rows['e_name'];
         $resultArray[$y][$counter] = $rows['event_id'];
         $resultArray[$z][$counter] = $rows['privateEvent'];
+        $resultArray[$location_pointer][$counter] = $rows['location'];
+        $resultArray[$time_pointer][$counter] = $rows['time'];
+        $resultArray[$uniName_pointer][$counter] = $rows['uni_name'];
         $counter++;
 
     }
@@ -89,9 +96,12 @@ else{
 <!--Scripts and Styles-->
 <script src="../Assets/Scripts/jquery-2.1.3.min.js"></script>
 <script src="../Assets/Scripts/bootstrap.min.js"></script>
+<script src="../Assets/Scripts/jquery.dataTables.min.js"></script>
+<script src="../Assets/Scripts/initTable.js"></script>
 <link rel="stylesheet" href="../Assets/Styles/bootstrap.min.css">
 <link rel="stylesheet" href="../Assets/Styles/bootstrap-theme.min.css">
 <link rel="stylesheet" href="../Assets/Styles/home_styles.css">
+<link rel="stylesheet" href="../Assets/Styles/jquery.dataTables.css">
 <!--Scripts and Styles-->
 
 <!--Header-->
@@ -108,11 +118,27 @@ else{
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li>
-                    <a href="../Views/find_rso_page.php">Join RSO</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">RSO<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="../Views/find_rso_page.php">Join RSO</a>
+                        </li>
+                        <li>
+                            <a href="../Views/create_rso_page.php">Create RSO</a>
+                        </li>
+                    </ul>
                 </li>
-                <li>
-                    <a href="../Views/find_events_page.php">Events</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Events <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="../Views/find_events_page.php">View Events</a>
+                        </li>
+                        <li>
+                            <a href="../Views/create_events_page.php">Create Events</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -130,33 +156,94 @@ else{
 
 <div class="container-fluid">
     <?php
-    echo "<h2 class='text-center'>".$row['name']."</h2>";
+    echo "<h2 class='text-center'>".$row['uni_name']."</h2>";
     ?>
-    <div class="row">
+    <div>
         <h3 class="text-center">Private Events</h3>
-        <div>
+        <table class="table table-bordered" id="example">
+            <thead>
+                <tr>
+                    <th class='text-center'>Name</th>
+                    <th class='text-center'>Location</th>
+                    <th class='text-center'>Date</th>
+                    <th class='text-center'>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+
+
+                for($i = 0; $i<$counter; $i++) {
+                    if($resultArray[$z][$i] == "Private") {
+                        $event_day = date("l F j, Y", strtotime($resultArray[$time_pointer][$i]));
+                        $event_time = date("g:i A", strtotime($resultArray[$time_pointer][$i]));
+                        echo
+                            "<tr>
+                                <td class='text-center'><a href='../Views/event_detail_page.php?eid=" . $resultArray[$y][$i] . "'> " . $resultArray[$x][$i] . "</a></td>
+                                <td class='text-center'>".$resultArray[$location_pointer][$i]."</td>
+                                <td class='text-center'>".$event_day."</td>
+                                <td class='text-center'>".$event_time."</td>
+                            </tr>";
+                            //"<h4 class='text-center'><a href='../Views/event_detail_page.php?eid=" . $resultArray[$y][$i] . "'> " . $resultArray[$x][$i] . "</a></h4>";
+                    }
+                }
+                ?>
+            </tbody>
+        </table>
+<!--        <div>
             <?php
-            for($i = 0; $i<$counter; $i++) {
+/*            for($i = 0; $i<$counter; $i++) {
                 if($resultArray[$z][$i] == "Private") {
                     echo
                         "<h4 class='text-center'><a href='../Views/event_detail_page.php?eid=" . $resultArray[$y][$i] . "'> " . $resultArray[$x][$i] . "</a></h4>";
                 }
             }
-            ?>
+            */?>-->
         </div>
     <hr>
-    <div class="row">
+
+    <div>
         <h3 class="text-center">Public Events</h3>
-        <div>
+        <table class="table table-bordered" id="example2">
+            <thead>
+                <tr>
+                    <th class="text-center">Host University</th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Location</th>
+                    <th class="text-center">Date</th>
+                    <th class="text-center">Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                for($i = 0; $i<$counter; $i++) {
+                    if($resultArray[$z][$i] == "Public") {
+                        $event_day = date("l F j, Y", strtotime($resultArray[$time_pointer][$i]));
+                        $event_time = date("g:i A", strtotime($resultArray[$time_pointer][$i]));
+                        echo
+                            "<tr>
+                                <td class='text-center'>".$resultArray[$uniName_pointer][$i]."</td>
+                                <td class='text-center'><a href='../Views/event_detail_page.php?eid=" . $resultArray[$y][$i] . "'> " . $resultArray[$x][$i] . "</a></td>
+                                <td class='text-center'>".$resultArray[$location_pointer][$i]."</td>
+                                <td class='text-center'>".$event_day."</td>
+                                <td class='text-center'>".$event_time."</td>
+                            </tr>";
+                        //"<h4 class='text-center'><a href='../Views/event_detail_page.php?eid=" . $resultArray[$y][$i] . "'> " . $resultArray[$x][$i] . "</a></h4>";
+                    }
+                }
+                ?>
+            </tbody>
+        </table>
+<!--        <div>
             <?php
-            for($i = 0; $i<$counter; $i++) {
+/*            for($i = 0; $i<$counter; $i++) {
                 if($resultArray[$z][$i] == "Public") {
                     echo
                         "<h4 class='text-center'><a href='../Views/event_detail_page.php?eid=" . $resultArray[$y][$i] . "'> " . $resultArray[$x][$i] . "</a></h4>";
                 }
             }
-            ?>
-        </div>
+            */?>
+        </div>-->
     </div>
 
 

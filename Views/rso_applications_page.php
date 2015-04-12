@@ -117,60 +117,46 @@ else{
 <!--Header-->
 
 <div class="container-fluid">
-<!--    --><?php
-/*    echo "<h3 class='text-center'>Welcome Super Admin " . $_SESSION["firstName"] . " " . $_SESSION["lastName"]."</h3>";
-    */?>
+    <!--    --><?php
+    /*    echo "<h3 class='text-center'>Welcome Super Admin " . $_SESSION["firstName"] . " " . $_SESSION["lastName"]."</h3>";
+        */?>
+
     <div class="row">
-        <h3 class="text-center">Current Universities</h3>
+        <h3 class="text-center">RSO Applications</h3>
     </div>
     <div>
         <table class="table table-bordered" id="example">
             <thead>
-                <tr>
-                    <th class="text-center">University</th>
-                    <th class="text-center">Location</th>
-                    <th class="text-center">Description</th>
-                    <th class="text-center">Number of Students</th>
-                </tr>
+            <tr>
+                <th class='text-center'>RSO</th>
+                <th class='text-center'>Admin</th>
+                <th class='text-center'>Accept Application</th>
+                <th class='text-center'>Decline Application</th>
+            </tr>
             </thead>
             <tbody>
-                <?php
-                    for($i=0; $i<$counter; $i++) {
-                        echo
-                            "<tr>
-                                <td class='text-center'>".$resultArray[$x][$i]."</td>
-                                <td class='text-center'>".$resultArray[$y][$i]."</td>
-                                <td class='text-center'>".$resultArray[$two][$i]."</td>
-                                <td class='text-center'>".$resultArray[$three][$i]."</td>
+            <?php
+            //Add rows with data from database
+            for($i=0; $i < $rsoCounter; $i++){
+                echo
+                    "<tr>
+                                <td class='text-center'>".$rsoArray[$x][$i]."</td>
+                                <td class='text-center'>".$rsoArray[$y][$i]."</td>
+                                <td><form action='../Controllers/rsoAcceptButton.php' method='post'>
+                                        <button class='btn btn-block' type='submit'> Accept </button>
+                                        <input name='rso_id' type='hidden' value='".$rsoArray[$two][$i]."'>
+                                    </form>
+                                </td>
+                                <td><form action='../Controllers/rsoDeclineButton.php' method='post'>
+                                        <button class='btn btn-block' type='submit'> Decline </button>
+                                        <input name='rso_id' type='hidden' value='".$rsoArray[$two][$i]."'>
+                                    </form>
+                                </td>
                             </tr>";
-                        }
-                ?>
+            }
+            ?>
             </tbody>
         </table>
-    </div>
-    <div class="row">
-        <h3 class="text-center">Add New University</h3>
-        <form action="../Controllers/createUniversity.php" method="post">
-            <div class="col-sm-4 col-sm-offset-4">
-                <div class="form-group">
-                    <label for="uName" class="control-label">University Name</label>
-                    <input type="text" name="uName" id="uName" placeholder="University Name" autofocus class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="location" class="control-label">Location</label>
-                    <input type="text" name="location" id="location" placeholder="Location" autofocus class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="description" class="control-label">Description</label>
-                    <textarea type="comment" name="description" id="description" placeholder="Description" autofocus class="form-control"></textarea>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-block">
-                        Create University
-                    </button>
-                </div>
-            </div>
-        </form>
     </div>
 </div>
 

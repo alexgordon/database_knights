@@ -20,7 +20,7 @@ if ($conn->connect_error) {
 
 }
 
-$sql = "SELECT U.name FROM universities_table U";
+$sql = "SELECT U.uni_name FROM universities_table U";
 
 //GET Universities
 $result = $conn->query($sql);
@@ -30,7 +30,7 @@ $counter = 0;
 while($rows = $result->fetch_assoc()){
     //   $resultArray[$rows['comment']][$counter] = $rows['comment'];
     //   $dateArray[$rows['commentDate']][$counter] = $rows['commentDate'];
-    $resultArray[$counter] = $rows['name'];
+    $resultArray[$counter] = $rows['uni_name'];
     $counter++;
 }
 
