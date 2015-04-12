@@ -26,7 +26,7 @@ if ($conn->connect_error) {
 
 }
 
-$sql = "INSERT INTO universities_table(name,location,description)
+$sql = "INSERT INTO universities_table(uni_name,location,description)
         VALUES ('$universityName','$location','$description')";
 
 $conn->query($sql);

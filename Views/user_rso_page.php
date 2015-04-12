@@ -139,6 +139,7 @@ else{
         echo "<h3 class='text-center'>".$resultArray[$x]."</h3>";
     ?>
     <hr>
+    <h3 class='text-center'>Current Events</h3>
     <?php
         if($user_privilege == 1) {
             $sql = "SELECT E.* FROM events_table E WHERE E.rso_id = '$rso_id'";
@@ -151,20 +152,21 @@ else{
                 $desc = $row['description'];
                 $eid = $row['event_id'];
                 echo
-                "<h3 class='text-center'>Current Events</h3>
+                "
                 <h4 class='text-center'><a href='event_detail_page.php?eid=$eid'>$eName</a></h4>
                 <h5 class='text-center'>$eLocation</h5>
                 <div class='text-center'>
                     $time <br>
                     $desc
                 </div>
+                <hr>
             ";
             }
 
             if ($resultArray[$y] == $_SESSION['user_id'])
                 echo
-                "<hr>
-                <h3 class='text-center'>Create Event</h3>
+                "
+                <h3 class='text-center'>Create New Event</h3>
                 <form action='../Controllers/createRsoEvent.php' method='post'>
                     <div class='col-sm-4 col-sm-offset-4'>
                         <div class='form-group'>

@@ -174,7 +174,7 @@ else{
 
 
                 for($i = 0; $i<$counter; $i++) {
-                    if($resultArray[$z][$i] == "Private") {
+                    if($resultArray[$z][$i] == "Private" && $row['uni_name'] == $resultArray[$uniName_pointer][$i]) {
                         $event_day = date("l F j, Y", strtotime($resultArray[$time_pointer][$i]));
                         $event_time = date("g:i A", strtotime($resultArray[$time_pointer][$i]));
                         echo
