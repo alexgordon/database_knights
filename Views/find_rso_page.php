@@ -74,7 +74,7 @@ else{
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>DB Knights</title>
 </head>
 <body>
 

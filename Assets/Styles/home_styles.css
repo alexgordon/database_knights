@@ -7,6 +7,19 @@ body {
     padding-top: 60px;
     margin-bottom: 75px;
 }
+
+tr{
+    background-color: lightgray;
+}
+td{
+    background-color: palegoldenrod;
+}
+th{
+    background-color: goldenrod;
+}
+table, th, td, tr{
+    border: 1px solid black !important;
+}
 footer {
     position: absolute;
     bottom: 0;

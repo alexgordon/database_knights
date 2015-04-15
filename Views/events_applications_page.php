@@ -72,7 +72,7 @@ else{
 <html xmlns="http://www.w3.org/1999/html">
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>DB Knights</title>
 </head>
 <body>
 
