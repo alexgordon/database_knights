@@ -93,6 +93,15 @@ else{
 <link rel="stylesheet" href="../Assets/Styles/bootstrap.min.css">
 <link rel="stylesheet" href="../Assets/Styles/bootstrap-theme.min.css">
 <link rel="stylesheet" href="../Assets/Styles/home_styles.css">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <!--Scripts and Styles-->
 
 <!--Header-->
@@ -164,6 +173,7 @@ else{
     echo "<h3 class='text-center'>$event_day</h3>
               <h4 class='text-center'>$event_time</h4>
               <h5 class='text-center'>Rating: ".$event_row['nre_rating']." - From ".$event_row['nre_rating_count']." reviews</h5>
+              <center><div class='fb-share-button' data-href='http://localhost:63342/database_knights/Views/event_detail_page.php?eid=$nre_id' data-layout='button_count'></div> <div class='g-plus' data-action='share' data-annotation='bubble'></div></center>
               <h3 class='text-center'>".$event_row['nre_location']."</h3>
               <img class='center-block img-responsive' border='0' src='https://maps.googleapis.com/maps/api/staticmap?center=".$map_location."&zoom=14&size=400x400&markers=color:blue%7Clabel:S%7C".$map_location."'>
               <div class='text-center'>
