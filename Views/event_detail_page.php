@@ -146,86 +146,69 @@ else{
 <!--Header-->
 
 <div class="container-fluid">
+    <div class="row">
+        <?php
+        echo "<h2 class='text-center'>".$row['uni_name']."</h2>";
 
-    <?php
-    echo "<h2 class='text-center'>".$row['uni_name']."</h2>";
+        echo "<h3 class='text-center'><b>".$event_row['e_name']."</b></h3>";
 
-    echo "<h3 class='text-center'>".$rso_row['name']." - <b>".$event_row['e_name']."</b></h3>";
-
-    ?>
+        ?>
+    </div>
     <hr>
-    <?php
-        $event_day = date("l F j, Y", strtotime($event_row['time']));
-        $event_time = date("g:i A", strtotime($event_row['time']));
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="detailBox">
+                <div class="titleBox text-center">
+                    <label>Comment Box</label>
+                    <button type="button" class="close" aria-hidden="true">&times;</button>
+                </div>
+                <div class="commentBox">
 
-        $location = $event_row['location'];
-        $map_location = str_replace(' ', '+',$location );
+                    <p class="taskDescription">Please write your comments about how you like this event.</p>
+                </div>
+                <div class="actionBox">
+                    <ul class="commentList">
+                        <?php
+                        //foreach ($resultArray as $row) {
+                        //  foreach ($row as $comment) {
+                        for($i=0; $i<$counter; $i++) {
+                            //echo "<p>" . $comment . "</p>";
+                            echo "<li>" .
+                                "<div class='commenterImage'>" .
+                                "<img src='http://cdn.flaticon.com/png/256/24029.png' />" .
+                                "</div>" .
+                                "<div class='commentText'>";
+                            if ($resultArray[$rating_index][$i] == 5) {
+                                echo "<p>&#10029 &#10029 &#10029 &#10029 &#10029</p>";
+                            }
+                            else if ($resultArray[$rating_index][$i] == 4) {
+                                echo "<p>&#10029 &#10029 &#10029 &#10029 &#10025</p>";
+                            }
+                            else if ($resultArray[$rating_index][$i] == 3) {
+                                echo "<p>&#10029 &#10029 &#10029 &#10025 &#10025</p>";
+                            }
+                            else if ($resultArray[$rating_index][$i] == 2) {
+                                echo "<p>&#10029 &#10029 &#10025 &#10025 &#10025</p>";
+                            }
+                            else if ($resultArray[$rating_index][$i] == 1) {
+                                echo "<p>&#10029 &#10025 &#10025 &#10025 &#10025</p>";
+                            }
 
-        echo "<h3 class='text-center'>$event_day</h3>
-              <h4 class='text-center'>$event_time</h4>
-              <h5 class='text-center'>Rating: ".$event_row['rating']." - From ".$event_row['rating_count']." reviews</h5>
-              <h3 class='text-center'>".$event_row['location']."</h3>
-              <img class='center-block img-responsive' border='0' src='https://maps.googleapis.com/maps/api/staticmap?center=".$map_location."&zoom=14&size=400x400&markers=color:blue%7Clabel:S%7C".$map_location."'>
-              <div class='text-center'>
-              ".$event_row['description']."
-              </div>";
+                            echo "<p>". $resultArray[$comments_index][$i] ."</p>" .
+                                "<span class='date sub-text'>" . $resultArray[$user_index][$i] . " - " . $resultArray[$date_index][$i] . "</span>".
+                                "</div>".
+                                "</li>";
+                        }
 
-    ?>
+                        ?>
+                    </ul>
 
-</div>
+                    <form method="post" action="../Controllers/updateDiscussion.php" class="form-inline">
 
-<div class="detailBox">
-    <div class="titleBox text-center">
-        <label>Comment Box</label>
-        <button type="button" class="close" aria-hidden="true">&times;</button>
-    </div>
-    <div class="commentBox">
-
-        <p class="taskDescription">Please write your comments about how you like this event.</p>
-    </div>
-    <div class="actionBox">
-        <ul class="commentList">
-            <?php
-            //foreach ($resultArray as $row) {
-            //  foreach ($row as $comment) {
-            for($i=0; $i<$counter; $i++) {
-                //echo "<p>" . $comment . "</p>";
-                echo "<li>" .
-                    "<div class='commenterImage'>" .
-                    "<img src='http://cdn.flaticon.com/png/256/24029.png' />" .
-                    "</div>" .
-                    "<div class='commentText'>";
-                if ($resultArray[$rating_index][$i] == 5) {
-                    echo "<p>&#10029 &#10029 &#10029 &#10029 &#10029</p>";
-                }
-                else if ($resultArray[$rating_index][$i] == 4) {
-                    echo "<p>&#10029 &#10029 &#10029 &#10029 &#10025</p>";
-                }
-                else if ($resultArray[$rating_index][$i] == 3) {
-                    echo "<p>&#10029 &#10029 &#10029 &#10025 &#10025</p>";
-                }
-                else if ($resultArray[$rating_index][$i] == 2) {
-                    echo "<p>&#10029 &#10029 &#10025 &#10025 &#10025</p>";
-                }
-                else if ($resultArray[$rating_index][$i] == 1) {
-                    echo "<p>&#10029 &#10025 &#10025 &#10025 &#10025</p>";
-                }
-
-                echo "<p>". $resultArray[$comments_index][$i] ."</p>" .
-                     "<span class='date sub-text'>" . $resultArray[$user_index][$i] . " - " . $resultArray[$date_index][$i] . "</span>".
-                     "</div>".
-                     "</li>";
-            }
-
-            ?>
-        </ul>
-
-        <form method="post" action="../Controllers/updateDiscussion.php" class="form-inline">
-
-                <div class="form-control-static">
-                <?php
-                if (strtotime($event_row['time']) < time()) {
-                    echo "<label for='rating' class='control-label'>Rating</label>
+                        <div class="form-control-static">
+                            <?php
+                            if (strtotime($event_row['time']) < time()) {
+                                echo "<label for='rating' class='control-label'>Rating</label>
                     <select class='form-control'name='rating'id='rating'>
                         <option>1</option>
                         <option>2</option>
@@ -233,19 +216,43 @@ else{
                         <option>4</option>
                         <option>5</option>
                     </select>";
-                }
-                ?>
-                    <input class="form-control" name="comment" type="text" placeholder="Your comments" />
-                </div>
-                <input type='hidden' name='eid' value='<?php echo $event_id ?>'>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default">Add</button>
-                </div>
+                            }
+                            ?>
+                            <input class="form-control" name="comment" type="text" placeholder="Your comments" />
+                        </div>
+                        <input type='hidden' name='eid' value='<?php echo $event_id ?>'>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default">Add</button>
+                        </div>
 
-        </form>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <?php
+                $event_day = date("l F j, Y", strtotime($event_row['time']));
+                $event_time = date("g:i A", strtotime($event_row['time']));
+
+                $location = $event_row['location'];
+                $map_location = str_replace(' ', '+',$location );
+
+                echo "<h3 class='text-left'>Details</h3><hr>
+                      <h4 class='text-left'><b>Hosted By:</b> ".$rso_row['name']."</h4>
+                      <h4 class='text-left'><b>When:</b> $event_day at $event_time</h4>
+                      <h4 class='text-left'><b>Location: </b>".$event_row['location']."</h4>
+                      <h4 class='text-left'><b>Rating:</b> ".$event_row['rating']." - From ".$event_row['rating_count']." reviews</h4>
+                      <div style='height:8px'></div>
+                      <h4 class='text-left'><b>Description: </b>".$event_row['description']."</h4></div>
+                      <div style='height:46px'></div>
+                      <div class='col-sm-3'>
+                      <h4 class='text-center'><b>Map</b></h4>
+                      <img class='center-block img-responsive' border='0' src='https://maps.googleapis.com/maps/api/staticmap?center=".$map_location."&zoom=14&size=200x200&markers=color:blue%7Clabel:S%7C".$map_location."'></div>";
+
+            ?>
     </div>
 </div>
-
+</div>
 <!--Footer-->
 <footer>
     <div class="container text-center">

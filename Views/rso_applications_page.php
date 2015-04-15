@@ -102,6 +102,9 @@ else{
                 <li>
                     <a href="../Views/rso_applications_page.php">RSO Applications</a>
                 </li>
+                <li>
+                    <a href="../Views/events_applications_page.php">Event Applications</a>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>

@@ -58,6 +58,6 @@ if ($row[0] == 5) {
 $conn->close();
 
 //Redirect
-header('Location: ../Views/user_homepage.php');
+header('Location: ../Views/create_rso_success_page.php');
 
 ?>

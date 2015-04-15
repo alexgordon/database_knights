@@ -20,10 +20,10 @@ footer ul {
 }
 
 .detailBox {
-    width:45%;
+    width:100%; /*Was 45 percent */
     border:1px solid #bbb;
    /* margin:50px;*/
-    margin-left: 30%;
+    /*margin-left: 30%;*/
     margin-top: 1%;
 }
 .titleBox {
@@ -86,4 +86,11 @@ footer ul {
 .actionBox {
     border-top:1px dotted #bbb;
     padding:10px;
+}
+
+.mapBorder{
+    background: #F4F8FE;
+    padding: 10px;
+    border: 1px solid #d5e4fb;
+
 }

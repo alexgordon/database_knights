@@ -129,37 +129,43 @@ else{
 <!--Header-->
 
 <div class="container-fluid">
+    <div class="row">
+        <?php
+        echo "<h2 class='text-center'>".$row['uni_name']."</h2>";
 
-    <?php
-    echo "<h2 class='text-center'>".$row['uni_name']."</h2>";
-
-    if($resultArray[$y] == $_SESSION['user_id'])
-        echo "<h3 class='text-center'>".$resultArray[$x]." - Admin</h3>";
-    else
-        echo "<h3 class='text-center'>".$resultArray[$x]."</h3>";
-    ?>
+        if($resultArray[$y] == $_SESSION['user_id'])
+            echo "<h3 class='text-center'>".$resultArray[$x]." - Admin</h3>";
+        else
+            echo "<h3 class='text-center'>".$resultArray[$x]."</h3>";
+        ?>
+    </div>
     <hr>
-    <h3 class='text-center'>Current Events</h3>
     <?php
         if($user_privilege == 1) {
+
+            echo"<div><h3 class='text-center'>Current Events</h3></div><hr>";
+
             $sql = "SELECT E.* FROM events_table E WHERE E.rso_id = '$rso_id'";
             $event_result = $conn->query($sql);
 
             while ($row = mysqli_fetch_assoc($event_result)) {
                 $eName = $row['e_name'];
                 $eLocation = $row['location'];
-                $time = $row['time'];
+                $event_day = date("l F j, Y", strtotime($row['time']));
+                $event_time = date("g:i A", strtotime($row['time']));
+//                $time = $row['time'];
                 $desc = $row['description'];
                 $eid = $row['event_id'];
                 echo
                 "
+                <div class='row'>
+                <div class='col-sm-6 col-sm-offset-3' style='border: solid;background: snow;'>
                 <h4 class='text-center'><a href='event_detail_page.php?eid=$eid'>$eName</a></h4>
                 <h5 class='text-center'>$eLocation</h5>
-                <div class='text-center'>
-                    $time <br>
-                    $desc
+                <h5 class='text-center'>$event_day at $event_time </h5>
+                <h5 class='text-center'>$desc</h5>
                 </div>
-                <hr>
+                </div>
             ";
             }
 
