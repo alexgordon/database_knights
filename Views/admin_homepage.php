@@ -67,7 +67,7 @@ else{
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="admin_homepage.php" class="navbar-brand">Compnay Name</a>
+            <a href="admin_homepage.php" class="navbar-brand">Database Knights</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -97,7 +97,7 @@ else{
 <!--Footer-->
 <footer>
     <div class="container text-center">
-        <p class="pull-left">© Company Name</p>
+        <p class="text-center">COT 4710 • University of Central Florida • Dr. Kien Hua</p>
     </div>
 </footer>
 <!--Footer-->
