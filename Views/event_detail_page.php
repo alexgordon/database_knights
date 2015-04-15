@@ -93,6 +93,16 @@ else{
 <link rel="stylesheet" href="../Assets/Styles/bootstrap.min.css">
 <link rel="stylesheet" href="../Assets/Styles/bootstrap-theme.min.css">
 <link rel="stylesheet" href="../Assets/Styles/home_styles.css">
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <!--Scripts and Styles-->
 
 <!--Header-->
@@ -247,7 +257,10 @@ else{
                       <div style='height:46px'></div>
                       <div class='col-sm-3'>
                       <h4 class='text-center'><b>Map</b></h4>
-                      <img class='center-block img-responsive' border='0' src='https://maps.googleapis.com/maps/api/staticmap?center=".$map_location."&zoom=14&size=200x200&markers=color:blue%7Clabel:S%7C".$map_location."'></div>";
+                      <img class='center-block img-responsive' border='0' src='https://maps.googleapis.com/maps/api/staticmap?center=".$map_location."&zoom=14&size=200x200&markers=color:blue%7Clabel:S%7C".$map_location."'>
+                      <center><div class='fb-share-button' data-href='http://localhost:63342/database_knights/Views/event_detail_page.php?eid=$event_id' data-layout='button_count'></div>
+                      <div class='g-plus' data-action='share' data-annotation='bubble'></div></center>
+                      </div>";
 
             ?>
     </div>
