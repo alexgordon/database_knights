@@ -133,14 +133,18 @@
         </div>-->
         <hr>
         <div class="row">
-            <h3 class="text-center">My RSO's</h3>
-            <div>
-                <?php
-                    for($i = 0; $i<$counter; $i++) {
-                        echo
-                            "<h4 class='text-center'><a href='../Views/user_rso_page.php?rso_id=".$resultArray[$y][$i]."&priv=1'> ".$resultArray[$x][$i]."</a></h4>";
-                    }
-                ?>
+            <div class="col-sm-4 col-sm-offset-4">
+                <div class="row" style="background:goldenrod;border:1px solid black;">
+                <h3 class="text-center">My RSO's</h3>
+                </div>
+                <div>
+                    <?php
+                        for($i = 0; $i<$counter; $i++) {
+                            echo
+                                "<div class='row' style='background:palegoldenrod;border:1px solid black;'><h4 class='text-center'><a href='../Views/user_rso_page.php?rso_id=".$resultArray[$y][$i]."&priv=1'> ".$resultArray[$x][$i]."</a></h4></div>";
+                        }
+                    ?>
+                </div>
             </div>
         </div>
 
