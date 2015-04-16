@@ -23,6 +23,7 @@ else{
 
     $uni_id = $_SESSION['uni_id'];
     $user_id = $_SESSION['user_id'];
+    $profile_user_id = $_GET['user_id'];
 
 //Create Connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -52,6 +53,11 @@ else{
         $counter++;
 
     }
+
+//GET Student
+    $sql = "SELECT U.* FROM users_table U WHERE U.user_id = '$profile_user_id'";
+    $result = $conn->query($sql);
+    $profile_row = $result->fetch_assoc();
 }
 
 ?>
@@ -67,7 +73,6 @@ else{
 <!--Scripts and Styles-->
 <script src="../Assets/Scripts/jquery-2.1.3.min.js"></script>
 <script src="../Assets/Scripts/bootstrap.min.js"></script>
-<script src="../Assets/Scripts/form_validate.js"></script>
 <link rel="stylesheet" href="../Assets/Styles/bootstrap.min.css">
 <link rel="stylesheet" href="../Assets/Styles/bootstrap-theme.min.css">
 <link rel="stylesheet" href="../Assets/Styles/home_styles.css">
@@ -124,52 +129,13 @@ else{
 <!--Header-->
 
 <div class="container-fluid">
-    <?php
-    echo "<h2 class='text-center'>".$row['uni_name']."</h2>";
-    ?>
 
-    <div>
-        <h3 class="text-center">Create a new RSO</h3>
-        <form action="../Controllers/createRSO.php" method="post">
-            <div class="col-sm-4 col-sm-offset-4">
-                <div class="form-group">
-                    <label for="rName" class="control-label">RSO Name</label>
-                    <input type="text" name="rName" id="rName" placeholder="RSO Name" autofocus class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="admin" class="control-label">Admin</label>
-                    <?php
-                    echo "<input type='email' name='admin' id='admin' placeholder='First Member's Email value='".$_SESSION['email']."' autofocus class='form-control' required readonly>";
-                    ?>
-                </div>
-                <div class="form-group">
-                    <label for="mem2" class="control-label">Second Member</label>
-                    <input type="email" name="mem2" id="mem2" placeholder="Second Member's Email" autofocus class="form-control email_input" required >
-                </div>
-                <div class="form-group">
-                    <label for="mem3" class="control-label">Third Member</label>
-                    <input type="email" name="mem3" id="mem3" placeholder="Third Member's Email" autofocus class="form-control email_input" required>
-                </div>
-                <div class="form-group">
-                    <label for="mem4" class="control-label">Fourth Member</label>
-                    <input type="email" name="mem4" id="mem4" placeholder="Fourth Member's Email" autofocus class="form-control email_input" required>
-                </div>
-                <div class="form-group">
-                    <label for="mem5" class="control-label">Fifth Member</label>
-                    <input type="email" name="mem5" id="mem5" placeholder="Fifth Member's Email" autofocus class="form-control email_input" required>
-                </div>
-                <?php
-                echo "<input name='uni_id' id='uni_id' value='".$_SESSION['uni_id']."' type='hidden'>";
-                ?>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-block btn-custom-gold" id="submit-button">
-                        Create RSO
-                    </button>
-                </div>
-            </div>
-        </form>
+    <div class="row">
+        <?php
+        echo "<h2 class='text-center'>".$profile_row['firstName']." ".$profile_row['lastName']." - <a href='mailto:".$profile_row['email']."?Subject=Hello%20".$profile_row['firstName']."%20".$profile_row['lastName']."'>".$profile_row['email']."</a></h2>";
+        ?>
     </div>
-
+    <hr>
 </div>
 
 <!--Footer-->

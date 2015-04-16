@@ -58,6 +58,13 @@ else{
 
     }
 
+//GET ADMIN INFO
+    $adminInfo = $resultArray[$y];
+    $sql = "SELECT U.* FROM users_table U WHERE U.user_id = '$adminInfo'";
+    $admin_result = $conn->query($sql);
+    $admin_row = $admin_result->fetch_assoc();
+
+
 }
 
 ?>
@@ -117,7 +124,7 @@ else{
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="user_homepage.php">Profile</a>
+                    <a href="../Views/update_profile_page.php">Profile</a>
                 </li>
                 <li>
                     <a href="../Controllers/logout.php">Logout</a>
@@ -136,7 +143,8 @@ else{
         if($resultArray[$y] == $_SESSION['user_id'])
             echo "<h3 class='text-center'>".$resultArray[$x]." - Admin</h3>";
         else
-            echo "<h3 class='text-center'>".$resultArray[$x]."</h3>";
+            echo "<h3 class='text-center'>".$resultArray[$x]."</h3>
+                  <h4 class='text-center'><b>Admin:</b> ".$admin_row['firstName']." ".$admin_row['lastName']." - <a href='mailto:".$admin_row['email']."?Subject=I%20Have%20A%20Question%20About%20".$resultArray[$x]."'>".$admin_row['email']."</a></h4>";
         ?>
     </div>
     <hr>

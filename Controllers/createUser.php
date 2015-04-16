@@ -24,7 +24,12 @@ $error_message = "";
 $string_exp = "/^[A-Za-z0-9 .'-]+$/";
 
 if($newUserPass != $newUserConfPass){
-    die("Password does not match, Please try again");
+    echo "<script LANGUAGE='JavaScript'>
+    window.alert('Password does not match, Please try again');
+    window.location.href='../Views/createAccount_page.php';
+    </script>";
+    //die("Password does not match, Please try again");
+    exit;
 }
 
 else {
@@ -59,8 +64,10 @@ else {
 
 
     $conn->close();
-    }
+
 
     //Redirect
     header('Location: ../Views/login_page.html');
+    }
+
 ?>

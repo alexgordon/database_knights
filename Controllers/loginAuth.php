@@ -82,7 +82,14 @@ if($count == 1){
 }
 
 else{
-    echo"Wrong Username or Password";
+
+    echo "<script LANGUAGE='JavaScript'>
+    window.alert('Invalid Log in Credentials, Please try again');
+    window.location.href='../Views/login_page.html';
+    </script>";
+    //die("Password does not match, Please try again");
+    exit;
+
 }
 
 

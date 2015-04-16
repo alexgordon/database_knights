@@ -125,7 +125,7 @@ else{
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#">Profile</a>
+                    <a href="../Views/update_profile_page.php">Profile</a>
                 </li>
                 <li>
                     <a href="../Controllers/logout.php">Logout</a>

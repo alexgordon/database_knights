@@ -23,35 +23,10 @@ else{
 
     $uni_id = $_SESSION['uni_id'];
     $user_id = $_SESSION['user_id'];
+    $firstName = $_SESSION['firstName'];
+    $lastName = $_SESSION['lastName'];
+    $email = $_SESSION['email'];
 
-//Create Connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-//Check Connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-
-    }
-
-//GET University
-    $sql = "SELECT UNI.uni_name FROM universities_table UNI WHERE UNI.uni_id = '$uni_id'";
-    $result = $conn->query($sql);
-    $row = $result->fetch_assoc();
-
-//GET RSO's
-    $sql = "SELECT R.name, R.rso_id FROM rso_table R, rso_member RM WHERE R.rso_id = RM.rso_id AND RM.user_id = '$user_id'";
-    $result = $conn->query($sql);
-    $resultArray = array();
-    $counter = 0;
-    $x = 0;
-    $y = 1;
-    while($rows = $result->fetch_assoc()) {
-
-        $resultArray[$x][$counter] = $rows['name'];
-        $resultArray[$y][$counter] = $rows['rso_id'];
-        $counter++;
-
-    }
 }
 
 ?>
@@ -67,7 +42,6 @@ else{
 <!--Scripts and Styles-->
 <script src="../Assets/Scripts/jquery-2.1.3.min.js"></script>
 <script src="../Assets/Scripts/bootstrap.min.js"></script>
-<script src="../Assets/Scripts/form_validate.js"></script>
 <link rel="stylesheet" href="../Assets/Styles/bootstrap.min.css">
 <link rel="stylesheet" href="../Assets/Styles/bootstrap-theme.min.css">
 <link rel="stylesheet" href="../Assets/Styles/home_styles.css">
@@ -124,52 +98,36 @@ else{
 <!--Header-->
 
 <div class="container-fluid">
-    <?php
-    echo "<h2 class='text-center'>".$row['uni_name']."</h2>";
-    ?>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <h3 class="text-center">Profile</h3>
+            </div>
+        </div>
 
-    <div>
-        <h3 class="text-center">Create a new RSO</h3>
-        <form action="../Controllers/createRSO.php" method="post">
+        <form action="../Controllers/updateUser.php" method="post">
             <div class="col-sm-4 col-sm-offset-4">
                 <div class="form-group">
-                    <label for="rName" class="control-label">RSO Name</label>
-                    <input type="text" name="rName" id="rName" placeholder="RSO Name" autofocus class="form-control" required>
+                    <label for="fName" class="control-label">First Name</label>
+                    <input type="text" name="fName" id="fName" placeholder="First Name" autofocus class="form-control" value='<?php echo $firstName ?>' required>
                 </div>
                 <div class="form-group">
-                    <label for="admin" class="control-label">Admin</label>
-                    <?php
-                    echo "<input type='email' name='admin' id='admin' placeholder='First Member's Email value='".$_SESSION['email']."' autofocus class='form-control' required readonly>";
-                    ?>
+                    <label for="lName" class="control-label">Last Name</label>
+                    <input type="text" name="lName" id="lName" placeholder="Last Name" autofocus class="form-control" value='<?php echo $lastName ?>' required>
                 </div>
                 <div class="form-group">
-                    <label for="mem2" class="control-label">Second Member</label>
-                    <input type="email" name="mem2" id="mem2" placeholder="Second Member's Email" autofocus class="form-control email_input" required >
+                    <label for="email" class="control-label">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Email" autofocus class="form-control" value='<?php echo $email ?>' required>
                 </div>
+                <input type="hidden" name="user_id" id="user_id" value='<?php echo $user_id?>'>
                 <div class="form-group">
-                    <label for="mem3" class="control-label">Third Member</label>
-                    <input type="email" name="mem3" id="mem3" placeholder="Third Member's Email" autofocus class="form-control email_input" required>
-                </div>
-                <div class="form-group">
-                    <label for="mem4" class="control-label">Fourth Member</label>
-                    <input type="email" name="mem4" id="mem4" placeholder="Fourth Member's Email" autofocus class="form-control email_input" required>
-                </div>
-                <div class="form-group">
-                    <label for="mem5" class="control-label">Fifth Member</label>
-                    <input type="email" name="mem5" id="mem5" placeholder="Fifth Member's Email" autofocus class="form-control email_input" required>
-                </div>
-                <?php
-                echo "<input name='uni_id' id='uni_id' value='".$_SESSION['uni_id']."' type='hidden'>";
-                ?>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-block btn-custom-gold" id="submit-button">
-                        Create RSO
+                    <button type="submit" class="btn btn-block btn-custom-gold">
+                        Update Account
                     </button>
                 </div>
             </div>
         </form>
     </div>
-
 </div>
 
 <!--Footer-->

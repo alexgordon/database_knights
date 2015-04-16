@@ -36,15 +36,18 @@ else{
 
     }
 
-//GET University
-    $sql = "SELECT UNI.uni_name FROM universities_table UNI WHERE UNI.uni_id = '$uni_id'";
-    $result = $conn->query($sql);
-    $row = $result->fetch_assoc();
 
 //GET event details
     $sql = "SELECT NRE.* FROM non_rso_events_table NRE WHERE NRE.nre_id = '$nre_id'";
     $event_result = $conn->query($sql);
     $event_row = $event_result->fetch_assoc();
+
+    $event_uni_id = $event_row['uni_id'];
+//GET University
+    $sql = "SELECT UNI.uni_name FROM universities_table UNI WHERE UNI.uni_id = '$event_uni_id'";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+
 
 /*    //$rso = $event_row['rso_id'];
 
@@ -54,7 +57,7 @@ else{
     $rso_row = $rso_result->fetch_assoc();*/
 
 //GET comments
-    $sql = "SELECT R.comments, R.reviewDate, R.rating, U.firstName, U.lastName
+    $sql = "SELECT R.comments, R.reviewDate, R.rating, U.firstName, U.lastName,U.user_id
             FROM reviews_table R, users_table U
             WHERE R.nre_id='$nre_id' AND R.user_id = U.user_id";
     $result = $conn->query($sql);
@@ -65,6 +68,7 @@ else{
     $date_index=1;
     $user_index=3;
     $rating_index=4;
+    $userId_index = 5;
     while($rows = $result->fetch_assoc()){
         //   $resultArray[$rows['comment']][$counter] = $rows['comment'];
         //   $dateArray[$rows['commentDate']][$counter] = $rows['commentDate'];
@@ -72,6 +76,7 @@ else{
         $resultArray[$date_index][$counter] = $rows['reviewDate'];
         $resultArray[$user_index][$counter] = $rows['firstName']." ".$rows['lastName'];
         $resultArray[$rating_index][$counter] = $rows['rating'];
+        $resultArray[$userId_index][$counter] = $rows['user_id'];
         $counter++;
     }
 
@@ -145,7 +150,7 @@ else{
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="user_homepage.php">Profile</a>
+                    <a href="../Views/update_profile_page.php">Profile</a>
                 </li>
                 <li>
                     <a href="../Controllers/logout.php">Logout</a>
@@ -205,10 +210,16 @@ else{
                                 echo "<p>&#10029 &#10025 &#10025 &#10025 &#10025</p>";
                             }
 
-                            echo "<p>". $resultArray[$comments_index][$i] ."</p>" .
-                                "<span class='date sub-text'>" . $resultArray[$user_index][$i] . " - " . $resultArray[$date_index][$i] . "</span>".
-                                "</div>".
-                                "</li>";
+                            echo "<p>". $resultArray[$comments_index][$i] ."</p>";
+                            if($resultArray[$userId_index][$i] != $user_id){
+                                echo "<span class='date sub-text'><a href='../Views/view_profile_page.php?user_id=".$resultArray[$userId_index][$i]."'>" . $resultArray[$user_index][$i] . "</a> - " . $resultArray[$date_index][$i] . "</span>";
+                            }
+                            else{
+                                echo "<span class='date sub-text'><a href='../Views/update_profile_page.php'>" . $resultArray[$user_index][$i] . "</a> - " . $resultArray[$date_index][$i] . "</span>";
+                            }
+
+                            echo "</div>".
+                                 "</li>";
                         }
 
                         ?>
