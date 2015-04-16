@@ -259,7 +259,7 @@ else{
               <div class='col-sm-3'>
               <div style='height:46px'></div>
               <h4 class='text-center'><b>Map</b></h4>
-              <img class='center-block img-responsive' border='0' src='https://maps.googleapis.com/maps/api/staticmap?center=".$map_location."&zoom=14&size=200x200&markers=color:blue%7Clabel:S%7C".$map_location."'>
+              <img class='center-block img-responsive mapBorder' border='0' src='https://maps.googleapis.com/maps/api/staticmap?center=".$map_location."&zoom=14&size=200x200&markers=color:blue%7Clabel:S%7C".$map_location."'>
               <center><div class='fb-share-button' data-href='http://localhost:63342/database_knights/Views/event_detail_page.php?nre_id=$nre_id' data-layout='button_count'></div>
               <div class='g-plus' data-action='share' data-annotation='bubble'></div></center>
               </div>";

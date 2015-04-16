@@ -119,9 +119,6 @@ else{
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#">Profile</a>
-                </li>
-                <li>
                     <a href="../Controllers/logout.php">Logout</a>
                 </li>
             </ul>
@@ -179,7 +176,7 @@ else{
                     <textarea type="comment" name="description" id="description" placeholder="Description" autofocus class="form-control"></textarea>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-block">
+                    <button type="submit" class="btn btn-block btn-custom-gold">
                         Create University
                     </button>
                 </div>

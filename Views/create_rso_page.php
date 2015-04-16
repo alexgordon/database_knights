@@ -126,7 +126,6 @@ else{
 <div class="container-fluid">
     <?php
     echo "<h2 class='text-center'>".$row['uni_name']."</h2>";
-    echo "<h3 class='text-center'>Welcome " . $_SESSION["firstName"] . " " . $_SESSION["lastName"]."</h3>";
     ?>
 
     <div>
@@ -163,7 +162,7 @@ else{
                 echo "<input name='uni_id' id='uni_id' value='".$_SESSION['uni_id']."' type='hidden'>";
                 ?>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-block" id="submit-button">
+                    <button type="submit" class="btn btn-block btn-custom-gold" id="submit-button">
                         Create RSO
                     </button>
                 </div>

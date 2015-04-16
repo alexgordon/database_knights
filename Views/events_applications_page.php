@@ -110,9 +110,6 @@ else{
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#">Profile</a>
-                </li>
-                <li>
                     <a href="../Controllers/logout.php">Logout</a>
                 </li>
             </ul>
@@ -149,13 +146,13 @@ else{
                                 <td class='text-center'>" . $eventArray[$x][$i] . "</td>
                                 <td class='text-center'>" . $eventArray[$two][$i] . "</td>
                                 <td><form action='../Controllers/eventAcceptButton.php' method='post'>
-                                        <button class='btn btn-block' type='submit'> Accept </button>
+                                        <button class='btn btn-block btn-custom-green' type='submit'> Accept </button>
                                         <input name='privateEvent' type='hidden' value='" . $eventArray[$y][$i] . "'>
                                         <input name='nre_id' type='hidden' value='" . $eventArray[$three][$i] . "'>
                                     </form>
                                 </td>
                                 <td><form action='../Controllers/eventDeclineButton.php' method='post'>
-                                        <button class='btn btn-block' type='submit'> Decline </button>
+                                        <button class='btn btn-block btn-custom-red' type='submit'> Decline </button>
                                         <input name='privateEvent' type='hidden' value='" . $eventArray[$y][$i] . "'>
                                         <input name='nre_id' type='hidden' value='" . $eventArray[$three][$i] . "'>
                                     </form>

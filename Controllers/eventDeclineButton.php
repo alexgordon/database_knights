@@ -17,6 +17,8 @@ $nre_id = $_POST['nre_id'];
 
 $privateEvent = substr($privateEvent,0,-8);
 
+echo $nre_id;
+
 //Create Connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -26,8 +28,8 @@ if ($conn->connect_error) {
 
 }
 
-//Insert members to rso
-$sql = "DELETE FROM non_rso_events_table NRE WHERE NRE.nre_id = '$nre_id'";
+//Delete Event
+$sql = "DELETE FROM non_rso_events_table WHERE nre_id = '$nre_id'";
 
 $conn->query($sql);
 

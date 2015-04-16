@@ -90,23 +90,23 @@ while($rows = $result->fetch_assoc()){
             <div class="col-sm-4 col-sm-offset-4">
                 <div class="form-group">
                     <label for="fName" class="control-label">First Name</label>
-                    <input type="text" name="fName" id="fName" placeholder="First Name" autofocus class="form-control">
+                    <input type="text" name="fName" id="fName" placeholder="First Name" autofocus class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="lName" class="control-label">Last Name</label>
-                    <input type="text" name="lName" id="lName" placeholder="Last Name" autofocus class="form-control">
+                    <input type="text" name="lName" id="lName" placeholder="Last Name" autofocus class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="email" class="control-label">Email</label>
-                    <input type="email" name="email" id="email" placeholder="Email" autofocus class="form-control">
+                    <input type="email" name="email" id="email" placeholder="Email" autofocus class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="pass" class="control-label">Password</label>
-                    <input type="password" name="pass" id="pass" placeholder="Password" autofocus class="form-control">
+                    <input type="password" name="pass" id="pass" placeholder="Password" autofocus class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="confPass" class="control-label">Confirm Password</label>
-                    <input type="password" name="confPass" id="confPass" placeholder="Confirm Password" autofocus class="form-control">
+                    <input type="password" name="confPass" id="confPass" placeholder="Confirm Password" autofocus class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="uName" class="control-label">University</label>
@@ -120,7 +120,7 @@ while($rows = $result->fetch_assoc()){
                     </select>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-block">
+                    <button type="submit" class="btn btn-block btn-custom-gold">
                         Create Account
                     </button>
                 </div>

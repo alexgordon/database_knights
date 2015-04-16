@@ -201,7 +201,7 @@ else{
                         </div>
                         <input type='hidden' name='rso' value='$rso_id'>
                         <div class='form-group'>
-                            <button type='submit' class='btn btn-block'>
+                            <button type='submit' class='btn btn-block btn-custom-gold'>
                                 Create Event
                             </button>
                         </div>
@@ -216,7 +216,7 @@ else{
                         <input type='hidden' name='rso_id' value='$rso_id'>
                         <input type='hidden' name='user_id' value='$user_id'>
                         <div class='form-group'>
-                            <button type='submit' class='btn btn-block'>
+                            <button type='submit' class='btn btn-block btn-custom-gold'>
                                 Join RSO
                             </button>
                         </div>

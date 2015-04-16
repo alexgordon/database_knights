@@ -137,33 +137,35 @@ else{
 <!--Header-->
 
 <div class="container-fluid">
-    <?php
-    echo "<h2 class='text-center'>".$row['uni_name']."</h2>";
-    ?>
-    <!--       <div class="row">
-               <h4 class="text-center">Please add to the <a href="../Views/forum.php">discussion</a>
-               </h4>
-           </div>-->
+    <div class="row">
+        <?php
+        echo "<h2 class='text-center'>".$row['uni_name']."</h2>";
+        ?>
+    </div>
     <hr>
     <div class="row">
-        <h3 class="text-center">Join a RSO</h3>
-        <div>
-            <?php
-            for($i = 0; $i<$counter; $i++) {
-                $resultCounter = 0;
+        <div class="col-sm-4 col-sm-offset-4">
+            <div class="row" style="background:goldenrod;border: 1px solid black;">
+                <h3 class="text-center">Join a RSO</h3>
+            </div>
+            <div>
+                <?php
+                for($i = 0; $i<$counter; $i++) {
+                    $resultCounter = 0;
 
-                for($j = 0; $j < $user_counter; $j++){
-                    if($resultArray[$y][$i] == $userRSOArray[$j]){
-                        $resultCounter++;
+                    for($j = 0; $j < $user_counter; $j++){
+                        if($resultArray[$y][$i] == $userRSOArray[$j]){
+                            $resultCounter++;
+                        }
+                    }
+
+                    if($resultCounter == 0) {
+                        echo
+                            "<div class='row' style='border: 1px solid black; background: palegoldenrod'><h4 class='text-center'><a href='../Views/user_rso_page.php?rso_id=" . $resultArray[$y][$i] . "&priv=0'> " . $resultArray[$x][$i] . "</a></h4></div>";
                     }
                 }
-
-                if($resultCounter == 0) {
-                    echo
-                        "<h4 class='text-center'><a href='../Views/user_rso_page.php?rso_id=" . $resultArray[$y][$i] . "&priv=0'> " . $resultArray[$x][$i] . "</a></h4>";
-                }
-            }
-            ?>
+                ?>
+             </div>
         </div>
     </div>
 </div>

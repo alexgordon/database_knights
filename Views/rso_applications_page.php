@@ -108,9 +108,6 @@ else{
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#">Profile</a>
-                </li>
-                <li>
                     <a href="../Controllers/logout.php">Logout</a>
                 </li>
             </ul>
@@ -146,12 +143,12 @@ else{
                                 <td class='text-center'>".$rsoArray[$x][$i]."</td>
                                 <td class='text-center'>".$rsoArray[$y][$i]."</td>
                                 <td><form action='../Controllers/rsoAcceptButton.php' method='post'>
-                                        <button class='btn btn-block' type='submit'> Accept </button>
+                                        <button class='btn btn-block btn-custom-green' type='submit'> Accept </button>
                                         <input name='rso_id' type='hidden' value='".$rsoArray[$two][$i]."'>
                                     </form>
                                 </td>
                                 <td><form action='../Controllers/rsoDeclineButton.php' method='post'>
-                                        <button class='btn btn-block' type='submit'> Decline </button>
+                                        <button class='btn btn-block btn-custom-red' type='submit'> Decline </button>
                                         <input name='rso_id' type='hidden' value='".$rsoArray[$two][$i]."'>
                                     </form>
                                 </td>

@@ -156,7 +156,7 @@ else{
             </div>
             <input type="hidden" value='<?php echo $uni_id ?>' name="uni_id">
             <div class='form-group'>
-                <button type='submit' class='btn btn-block'>
+                <button type='submit' class='btn btn-block btn-custom-gold'>
                     Create Event
                 </button>
             </div>
