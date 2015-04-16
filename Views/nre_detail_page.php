@@ -43,6 +43,13 @@ else{
     $event_row = $event_result->fetch_assoc();
 
     $event_uni_id = $event_row['uni_id'];
+    $event_user_id = $event_row['nre_user_id'];
+
+//Get User Info
+    $sql = "SELECT U.* FROM users_table U WHERE U.user_id = '$event_user_id'";
+    $user_result = $conn->query($sql);
+    $user_row = $user_result->fetch_assoc();
+
 //GET University
     $sql = "SELECT UNI.uni_name FROM universities_table UNI WHERE UNI.uni_id = '$event_uni_id'";
     $result = $conn->query($sql);
@@ -261,6 +268,7 @@ else{
 
             echo "
               <h3 class='text-left'>Details</h3><hr>
+              <h4 class='text-left'><b>Primary Contact:</b> ".$user_row['firstName']." ".$user_row['lastName']." - <a href='mailto:".$user_row['email']."?Subject=I%20Have%20A%20Question%20About%20".$event_row['nre_name']."'>".$user_row['email']."</a></h4>
               <h4 class='text-left'><b>When: </b>$event_day at $event_time</h4>
               <h4 class='text-left'><b>Location: </b>".$event_row['nre_location']."</h4>
               <h4 class='text-left'><b>Rating: </b>".$event_row['nre_rating']." - From ".$event_row['nre_rating_count']." reviews</h4>

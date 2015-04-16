@@ -155,6 +155,7 @@ else{
                 </select>
             </div>
             <input type="hidden" value='<?php echo $uni_id ?>' name="uni_id">
+            <input type="hidden" value='<?php echo $user_id?>' name="user_id">
             <div class='form-group'>
                 <button type='submit' class='btn btn-block btn-custom-gold'>
                     Create Event

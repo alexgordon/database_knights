@@ -144,7 +144,7 @@ else{
             echo "<h3 class='text-center'>".$resultArray[$x]." - Admin</h3>";
         else
             echo "<h3 class='text-center'>".$resultArray[$x]."</h3>
-                  <h4 class='text-center'><b>Admin:</b> ".$admin_row['firstName']." ".$admin_row['lastName']." - <a href='mailto:".$admin_row['email']."?Subject=I%20Have%20A%20Question%20About%20".$resultArray[$x]."'>".$admin_row['email']."</a></h4>";
+                  <h4 class='text-center'><b>Primary Contact:</b> ".$admin_row['firstName']." ".$admin_row['lastName']." - <a href='mailto:".$admin_row['email']."?Subject=I%20Have%20A%20Question%20About%20".$resultArray[$x]."'>".$admin_row['email']."</a></h4>";
         ?>
     </div>
     <hr>
